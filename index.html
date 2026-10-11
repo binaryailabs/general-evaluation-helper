@@ -3,8 +3,76 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Toastmasters – General Evaluator Checklist</title>
+<title>Toastmasters Meeting Toolkit</title>
 <style>
+:root{--blue:#004165;--red:#772432;--gold:#F2DF74;--ink:#17202a;--muted:#667085;--bg:#f3f6fa;--card:#fff;--line:#dce3ea;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.hero{background:linear-gradient(135deg,var(--blue),#0b628b 62%,var(--red));color:#fff;padding:42px 18px 34px}
+.shell{max-width:1240px;margin:auto}
+.hero h1{margin:0;font-size:clamp(1.8rem,4vw,3rem)}
+.hero p{max-width:780px;margin:10px 0 0;line-height:1.55;opacity:.93}
+.home-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:26px}
+.home-card{appearance:none;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.11);color:#fff;border-radius:16px;padding:18px 15px;text-align:left;cursor:pointer;backdrop-filter:blur(6px);transition:.18s}
+.home-card:hover{transform:translateY(-2px);background:rgba(255,255,255,.18)}
+.home-card .icon{font-size:1.5rem;display:block;margin-bottom:8px}
+.home-card strong{display:block;font-size:.96rem}
+.home-card small{display:block;margin-top:5px;opacity:.8;line-height:1.35}
+.tabs{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.tabrow{max-width:1240px;margin:auto;padding:9px 12px;display:flex;gap:7px;overflow-x:auto}
+.tab{border:1px solid var(--line);background:#fff;color:#344054;border-radius:999px;padding:9px 13px;font-weight:800;font-size:.82rem;white-space:nowrap;cursor:pointer}
+.tab:hover,.tab.active{background:var(--blue);border-color:var(--blue);color:#fff}
+main{max-width:1240px;margin:auto;padding:22px 12px 50px}
+.tool-section{margin:0 0 28px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 22px rgba(15,23,42,.06);overflow:hidden;scroll-margin-top:78px}
+.tool-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:#fbfcfe}
+.tool-head h2{margin:0;font-size:1.05rem;color:var(--blue)}
+.tool-head p{margin:3px 0 0;color:var(--muted);font-size:.79rem}
+.tool-actions{display:flex;gap:7px;flex-wrap:wrap}
+.tool-btn{border:1px solid var(--line);background:#fff;color:#344054;border-radius:9px;padding:7px 10px;font-weight:800;font-size:.75rem;cursor:pointer}
+.tool-btn:hover{border-color:var(--blue);color:var(--blue)}
+iframe{display:block;width:100%;border:0;background:#fff;height:720px}
+#tool-timer iframe{background:#0c0c11}
+.tool-section.focus{position:fixed;inset:8px;z-index:1000;margin:0;border-radius:16px;box-shadow:0 25px 70px rgba(0,0,0,.35)}
+.tool-section.focus iframe{height:calc(100vh - 70px)!important}
+body.has-focus{overflow:hidden}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:0 14px 30px}
+@media(max-width:1050px){.home-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:650px){.hero{padding-top:30px}.home-grid{grid-template-columns:1fr 1fr}.tool-head{align-items:flex-start;flex-direction:column}}
+@media(max-width:420px){.home-grid{grid-template-columns:1fr}}
+@media print{.hero,.tabs,.tool-actions,footer{display:none!important}main{padding:0;max-width:none}.tool-section{box-shadow:none;border:0}iframe{height:1200px!important}}
+</style>
+</head>
+<body>
+<section class="hero" id="home">
+ <div class="shell">
+  <h1>Toastmasters Meeting Toolkit</h1>
+  <p>One offline page for the General Evaluator and meeting role-player tools. Pick a feature below and the page scrolls directly to it.</p>
+  <div class="home-grid">
+   <button class="home-card" onclick="TMHub.go('general-evaluator')"><span class="icon">📋</span><strong>General Evaluator</strong><small>Dynamic club details, role checklist, speakers, recommendations and PDF report.</small></button>
+   <button class="home-card" onclick="TMHub.go('timer')"><span class="icon">⏱️</span><strong>Timer</strong><small>Live green/yellow/red timing for speeches, evaluations, Table Topics and custom timing.</small></button>
+   <button class="home-card" onclick="TMHub.go('ah-counter')"><span class="icon">👂</span><strong>Ah-Counter</strong><small>Track filler sounds, crutch words, pauses, repetitions and speaker totals.</small></button>
+   <button class="home-card" onclick="TMHub.go('grammarian')"><span class="icon">🔤</span><strong>Grammarian</strong><small>Word/Idiom of the Day, good words, expressions and grammar corrections.</small></button>
+   <button class="home-card" onclick="TMHub.go('role-players')"><span class="icon">🎤</span><strong>Role Players</strong><small>Quick launcher for Timer, Ah-Counter and Grammarian inside this same page.</small></button>
+  </div>
+ </div>
+</section>
+<nav class="tabs"><div class="tabrow">
+ <button class="tab" data-target="home" onclick="TMHub.go('home')">Home</button>
+ <button class="tab" data-target="general-evaluator" onclick="TMHub.go('general-evaluator')">GE</button>
+ <button class="tab" data-target="timer" onclick="TMHub.go('timer')">Timer</button>
+ <button class="tab" data-target="ah-counter" onclick="TMHub.go('ah-counter')">Ah-Counter</button>
+ <button class="tab" data-target="grammarian" onclick="TMHub.go('grammarian')">Grammarian</button>
+ <button class="tab" data-target="role-players" onclick="TMHub.go('role-players')">Role Players</button>
+</div></nav>
+<main>
+ <section class="tool-section" id="general-evaluator"><div class="tool-head"><div><h2>📋 General Evaluator</h2><p>Dynamic club GE checklist and color-graded report.</p></div><div class="tool-actions"><button class="tool-btn" onclick="TMHub.top()">↑ Home</button><button class="tool-btn" onclick="TMHub.focus('general-evaluator')">⛶ Expand</button></div></div><iframe id="frame-ge" title="General Evaluator" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+&lt;title&gt;General Evaluator&lt;/title&gt;
+&lt;style&gt;
 :root{--tm-blue:#004165;--tm-red:#772432;--tm-gold:#F2DF74;--bg:#f4f7fb;--card:#fff;--ink:#17202a;--muted:#6b7280;--green:#16834a;--green-bg:#eaf8f0;--amber:#b96800;--amber-bg:#fff5df;--red:#b52f26;--red-bg:#fdebea;--line:#dfe4ea}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
 header{background:linear-gradient(135deg,var(--tm-blue),#0a5f88 62%,var(--tm-red));color:#fff;padding:22px 16px 18px;box-shadow:0 3px 14px rgba(0,0,0,.13)}
@@ -19,42 +87,1547 @@ main{padding:18px 14px 40px}.panel,.role-card,.speaker-card{background:var(--car
 @media(max-width:520px){.meta,.summary,.speaker-fields,.speaker-fields.prepared{grid-template-columns:1fr}.item{grid-template-columns:26px 1fr}.recbtn{grid-column:2;justify-self:start}.section-title{align-items:flex-start;flex-direction:column}}
 @page{size:A4;margin:12mm}
 @media print{body{background:#fff;font-size:10.5pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}header{box-shadow:none;padding:14px 12px}main{padding:8px 0 0}.wrap{max-width:none}.panel,.role-card,.speaker-card{box-shadow:none;border-color:#cfd5dd;overflow:visible!important}.panel{break-inside:auto}.role-card,.speaker-card{break-inside:auto;page-break-inside:auto}.role-head,.speaker-head,.item,.role-note,.speaker-fields{break-inside:avoid;page-break-inside:avoid}.role-grid,.speaker-grid{display:block}.role-card,.speaker-card{margin-bottom:10px}.actions,.controls,.recbtn,.footer-note{display:none!important}textarea{resize:none!important;overflow:visible!important;height:auto!important;min-height:42px;white-space:pre-wrap}input[type=text],input[type=date],textarea{border:1px solid #cfd5dd!important;background:#fff!important}.meta{grid-template-columns:repeat(2,1fr)}.summary{grid-template-columns:repeat(4,1fr)}.speaker-fields,.speaker-fields.prepared{grid-template-columns:repeat(2,1fr)}.item{grid-template-columns:24px 1fr}.item-text{font-size:9.8pt}.section-title{break-after:avoid;page-break-after:avoid}}
-</style>
-</head>
-<body>
-<header><div class="wrap header-grid"><div><h1>Toastmasters – General Evaluator Checklist</h1><div class="subtitle">Interactive meeting-quality tracker • Done = green • Recommendation = amber</div></div><div class="badge" id="clubBadge">Club Meeting Report</div></div></header>
-<main class="wrap">
-<section class="panel"><div class="meta"><div><label>Club Name</label><input id="clubName" type="text" placeholder="e.g. Goregaon Speakers Community"></div><div><label>Area</label><input id="area" type="text" placeholder="e.g. A1"></div><div><label>Division</label><input id="division" type="text" placeholder="e.g. A"></div><div><label>District Number</label><input id="districtNo" type="text" placeholder="e.g. 226"></div></div><div class="meta" style="margin-top:10px"><div><label>Meeting Date</label><input id="meetingDate" type="date"></div><div><label>Meeting No.</label><input id="meetingNo" type="text" placeholder="e.g. 245"></div><div><label>Theme</label><input id="theme" type="text" placeholder="Meeting theme"></div><div><label>General Evaluator</label><input id="geName" type="text" placeholder="GE name"></div></div><div class="summary"><div class="stat"><div class="n" id="doneCount">0</div><div class="t">Done</div></div><div class="stat"><div class="n" id="recCount">0</div><div class="t">Recommendations</div></div><div class="stat"><div class="n" id="completion">0%</div><div class="t">Completion</div></div><div class="stat"><div class="n grade" id="grade">Not Rated</div><div class="t">Meeting Grade</div></div></div><div class="legend"><span class="done">✓ Done / Observed well</span><span class="rec">★ Recommendation / Improvement</span><span class="pending">○ Not yet marked</span></div></section>
-<div class="section-title"><h2>Meeting Roles</h2></div><section class="role-grid" id="fixedRoles"></section>
-<div class="section-title"><h2>Prepared Speakers</h2><div class="controls"><button class="action small" onclick="addPrepared()">+ Add Prepared Speaker</button><button class="remove small" onclick="removePrepared()">− Remove Last</button></div></div><section class="speaker-grid" id="preparedGrid"></section>
-<div class="section-title"><h2>Table Topics Speakers</h2><div class="controls"><button class="action small" onclick="addTT()">+ Add Table Topics Speaker</button><button class="remove small" onclick="removeTT()">− Remove Last</button></div></div><section class="speaker-grid" id="ttGrid"></section>
-<section class="panel" style="margin-top:16px"><h2 class="report-title">Overall GE Report</h2><div class="meta" style="grid-template-columns:1fr 1fr"><div><label>What went especially well?</label><textarea id="strengths" data-autogrow placeholder="Strong moments, preparation, delivery, audience engagement..."></textarea></div><div><label>Top recommendations for next meeting</label><textarea id="overallRec" data-autogrow placeholder="2–4 focused recommendations..."></textarea></div></div><h3 style="margin:14px 0 8px;color:var(--tm-blue)">Auto-collected recommendations</h3><ul class="recs-list" id="autoRecs"><li>No recommendations marked yet.</li></ul><div class="actions" style="margin-top:15px"><button class="action" onclick="printReport()">Print / Save as PDF</button><button class="action secondary" onclick="copyReport()">Copy Summary</button><button class="action secondary" onclick="saveNow()">Save in Browser</button><button class="remove" onclick="resetAll()">Reset Meeting</button></div></section>
-<div class="footer-note">Reusable for any Toastmasters club. Data is saved locally in this browser. Print/PDF mode expands note boxes to avoid clipping.</div>
-</main>
-<script>
-const fixedRoleDefs=[["Sergeant at Arms (SAA)",["Meeting room / online setup ready before start","Meeting opened on time with energy and protocol","Guest / member housekeeping instructions were clear","Introduced Presiding Officer correctly","Supported smooth transitions and logistics"]],["Presiding Officer (PO)",["Welcomed members and guests warmly","Handled club business efficiently","Introduced TMOD with correct context","Maintained professional meeting tone","Closed / handed over meeting cleanly"]],["Toastmaster of the Day (TMOD)",["Theme and meeting flow were introduced clearly","Role players were introduced effectively","Transitions between segments were smooth","Energy, audience engagement and time awareness were strong","Session had a clear beginning, middle and closure"]],["Timer",["Explained timing rules and signals clearly","Displayed signals at correct times","Tracked all timed segments accurately","Presented concise timer report","Timing supported meeting discipline"]],["Ah-Counter",["Explained filler-word role clearly","Tracked filler words / unnecessary repetitions","Observed multiple speakers consistently","Report was specific and concise","Shared useful patterns without embarrassing speakers"]],["Grammarian",["Introduced Word of the Day clearly","Explained grammarian role","Tracked good usage and improvement opportunities","Noted memorable phrases / language","Delivered balanced and educational report"]],["Speech Evaluator(s)",["Evaluation linked to speech objectives","Specific strengths were identified","Recommendations were actionable","Evaluation was balanced and encouraging","Evaluator stayed within time"]],["Listener",["Listener role was explained","Questions reflected actual meeting content","Audience participation was encouraged","Questions were fair and varied","Segment was concise and engaging"]],["Table Topics Master",["Topic / format was explained clearly","Questions were concise and open-ended","Topics offered variety and creativity","Speakers were selected smoothly and fairly","Segment stayed energetic and within time"]],["General Evaluator (Self-check)",["Explained GE team / evaluation purpose","Observed the entire meeting, not only speeches","Balanced appreciation with improvement points","Gave specific examples and actionable recommendations","Delivered report within allotted time"]]];
-const preparedChecklist=["Speech objective / project context was clear","Opening created interest","Speech had clear structure and flow","Delivery supported the message","Audience connection was strong","Conclusion was effective","Speaker stayed within allotted time"];
-const ttChecklist=["Responded directly to the topic","Used a beginning–middle–end structure","Showed spontaneity / creativity","Maintained audience connection","Stayed within allotted time"];
-let state={fixed:fixedRoleDefs.map(()=>({done:[],rec:[],note:""})),prepared:[],tt:[]};
-function blankPrepared(){return{name:"",title:"",objective:"",time:"",done:[],rec:[],note:""}}function blankTT(){return{name:"",title:"",time:"",done:[],rec:[],note:""}}
-function escapeHtml(s=""){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function renderChecklist(items,prefix,obj){return `<div class="items">`+items.map((text,i)=>`<div class="item ${obj.done[i]?'done-row':obj.rec[i]?'rec-row':''}" id="${prefix}-row-${i}"><input class="donebox" type="checkbox" ${obj.done[i]?'checked':''} onchange="setDone('${prefix}',${i},this.checked)"><div class="item-text">${escapeHtml(text)}</div><button type="button" class="recbtn ${obj.rec[i]?'active':''}" onclick="toggleRec('${prefix}',${i})">Recommend</button></div>`).join("")+`</div>`}
-function renderFixed(){const root=document.getElementById("fixedRoles");root.innerHTML=fixedRoleDefs.map(([name,items],idx)=>{const obj=state.fixed[idx]||{done:[],rec:[],note:""};state.fixed[idx]=obj;const score=(obj.done||[]).filter(Boolean).length;return `<article class="role-card"><div class="role-head"><div class="role-title">${escapeHtml(name)}</div><div class="role-score">${score} / ${items.length}</div></div>${renderChecklist(items,`fixed-${idx}`,obj)}<div class="role-note"><label>Role notes</label><textarea data-autogrow oninput="setNote('fixed',${idx},this.value)" placeholder="Specific observation for ${escapeHtml(name)}">${escapeHtml(obj.note||"")}</textarea></div></article>`}).join("");bindAutogrow()}
-function renderPrepared(){const root=document.getElementById("preparedGrid");if(!state.prepared.length){root.innerHTML=`<div class="empty-note">No prepared speakers added. Use “+ Add Prepared Speaker”.</div>`;return}root.innerHTML=state.prepared.map((obj,idx)=>{const score=(obj.done||[]).filter(Boolean).length;return `<article class="speaker-card"><div class="speaker-head"><div class="speaker-title">Prepared Speaker ${idx+1}</div><div class="role-score">${score} / ${preparedChecklist.length}</div></div><div class="speaker-fields prepared"><div><label>Speaker Name</label><input type="text" value="${escapeHtml(obj.name)}" oninput="setSpeakerField('prepared',${idx},'name',this.value)" placeholder="Name"></div><div><label>Speech Title</label><input type="text" value="${escapeHtml(obj.title)}" oninput="setSpeakerField('prepared',${idx},'title',this.value)" placeholder="Speech title"></div><div><label>Speech Objective</label><input type="text" value="${escapeHtml(obj.objective)}" oninput="setSpeakerField('prepared',${idx},'objective',this.value)" placeholder="Project / purpose / objective"></div><div><label>Time Taken</label><input type="text" value="${escapeHtml(obj.time)}" oninput="setSpeakerField('prepared',${idx},'time',this.value)" placeholder="e.g. 6:32"></div></div>${renderChecklist(preparedChecklist,`prepared-${idx}`,obj)}<div class="role-note"><label>Speaker observations</label><textarea data-autogrow oninput="setNote('prepared',${idx},this.value)" placeholder="Strengths, recommendations, memorable moments...">${escapeHtml(obj.note||"")}</textarea></div></article>`}).join("");bindAutogrow()}
-function renderTT(){const root=document.getElementById("ttGrid");if(!state.tt.length){root.innerHTML=`<div class="empty-note">No Table Topics speakers added. Use “+ Add Table Topics Speaker”.</div>`;return}root.innerHTML=state.tt.map((obj,idx)=>{const score=(obj.done||[]).filter(Boolean).length;return `<article class="speaker-card"><div class="speaker-head"><div class="speaker-title">Table Topics Speaker ${idx+1}</div><div class="role-score">${score} / ${ttChecklist.length}</div></div><div class="speaker-fields"><div><label>Speaker Name</label><input type="text" value="${escapeHtml(obj.name)}" oninput="setSpeakerField('tt',${idx},'name',this.value)" placeholder="Name"></div><div><label>Table Topics Speech Title / Topic</label><input type="text" value="${escapeHtml(obj.title)}" oninput="setSpeakerField('tt',${idx},'title',this.value)" placeholder="Speech title / prompt"></div><div><label>Time Taken</label><input type="text" value="${escapeHtml(obj.time)}" oninput="setSpeakerField('tt',${idx},'time',this.value)" placeholder="e.g. 1:42"></div></div>${renderChecklist(ttChecklist,`tt-${idx}`,obj)}<div class="role-note"><label>Speaker observations</label><textarea data-autogrow oninput="setNote('tt',${idx},this.value)" placeholder="Strengths and recommendation...">${escapeHtml(obj.note||"")}</textarea></div></article>`}).join("");bindAutogrow()}
-function getTarget(prefix){const [type,idxs]=prefix.split("-");const idx=Number(idxs);if(type==="fixed")return state.fixed[idx];if(type==="prepared")return state.prepared[idx];if(type==="tt")return state.tt[idx]}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;header&gt;&lt;div class=&quot;wrap header-grid&quot;&gt;&lt;div&gt;&lt;h1&gt;Toastmasters – General Evaluator Checklist&lt;/h1&gt;&lt;div class=&quot;subtitle&quot;&gt;Interactive meeting-quality tracker • Done = green • Recommendation = amber&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;badge&quot; id=&quot;clubBadge&quot;&gt;Club Meeting Report&lt;/div&gt;&lt;/div&gt;&lt;/header&gt;
+&lt;main class=&quot;wrap&quot;&gt;
+&lt;section class=&quot;panel&quot;&gt;&lt;div class=&quot;meta&quot;&gt;&lt;div&gt;&lt;label&gt;Club Name&lt;/label&gt;&lt;input id=&quot;clubName&quot; type=&quot;text&quot; placeholder=&quot;e.g. Goregaon Speakers Community&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Area&lt;/label&gt;&lt;input id=&quot;area&quot; type=&quot;text&quot; placeholder=&quot;e.g. A1&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Division&lt;/label&gt;&lt;input id=&quot;division&quot; type=&quot;text&quot; placeholder=&quot;e.g. A&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;District Number&lt;/label&gt;&lt;input id=&quot;districtNo&quot; type=&quot;text&quot; placeholder=&quot;e.g. 226&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;meta&quot; style=&quot;margin-top:10px&quot;&gt;&lt;div&gt;&lt;label&gt;Meeting Date&lt;/label&gt;&lt;input id=&quot;meetingDate&quot; type=&quot;date&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Meeting No.&lt;/label&gt;&lt;input id=&quot;meetingNo&quot; type=&quot;text&quot; placeholder=&quot;e.g. 245&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Theme&lt;/label&gt;&lt;input id=&quot;theme&quot; type=&quot;text&quot; placeholder=&quot;Meeting theme&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;General Evaluator&lt;/label&gt;&lt;input id=&quot;geName&quot; type=&quot;text&quot; placeholder=&quot;GE name&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;summary&quot;&gt;&lt;div class=&quot;stat&quot;&gt;&lt;div class=&quot;n&quot; id=&quot;doneCount&quot;&gt;0&lt;/div&gt;&lt;div class=&quot;t&quot;&gt;Done&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;stat&quot;&gt;&lt;div class=&quot;n&quot; id=&quot;recCount&quot;&gt;0&lt;/div&gt;&lt;div class=&quot;t&quot;&gt;Recommendations&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;stat&quot;&gt;&lt;div class=&quot;n&quot; id=&quot;completion&quot;&gt;0%&lt;/div&gt;&lt;div class=&quot;t&quot;&gt;Completion&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;stat&quot;&gt;&lt;div class=&quot;n grade&quot; id=&quot;grade&quot;&gt;Not Rated&lt;/div&gt;&lt;div class=&quot;t&quot;&gt;Meeting Grade&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;legend&quot;&gt;&lt;span class=&quot;done&quot;&gt;✓ Done / Observed well&lt;/span&gt;&lt;span class=&quot;rec&quot;&gt;★ Recommendation / Improvement&lt;/span&gt;&lt;span class=&quot;pending&quot;&gt;○ Not yet marked&lt;/span&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;div class=&quot;section-title&quot;&gt;&lt;h2&gt;Meeting Roles&lt;/h2&gt;&lt;/div&gt;&lt;section class=&quot;role-grid&quot; id=&quot;fixedRoles&quot;&gt;&lt;/section&gt;
+&lt;div class=&quot;section-title&quot;&gt;&lt;h2&gt;Prepared Speakers&lt;/h2&gt;&lt;div class=&quot;controls&quot;&gt;&lt;button class=&quot;action small&quot; onclick=&quot;addPrepared()&quot;&gt;+ Add Prepared Speaker&lt;/button&gt;&lt;button class=&quot;remove small&quot; onclick=&quot;removePrepared()&quot;&gt;− Remove Last&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;section class=&quot;speaker-grid&quot; id=&quot;preparedGrid&quot;&gt;&lt;/section&gt;
+&lt;div class=&quot;section-title&quot;&gt;&lt;h2&gt;Table Topics Speakers&lt;/h2&gt;&lt;div class=&quot;controls&quot;&gt;&lt;button class=&quot;action small&quot; onclick=&quot;addTT()&quot;&gt;+ Add Table Topics Speaker&lt;/button&gt;&lt;button class=&quot;remove small&quot; onclick=&quot;removeTT()&quot;&gt;− Remove Last&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;section class=&quot;speaker-grid&quot; id=&quot;ttGrid&quot;&gt;&lt;/section&gt;
+&lt;section class=&quot;panel&quot; style=&quot;margin-top:16px&quot;&gt;&lt;h2 class=&quot;report-title&quot;&gt;Overall GE Report&lt;/h2&gt;&lt;div class=&quot;meta&quot; style=&quot;grid-template-columns:1fr 1fr&quot;&gt;&lt;div&gt;&lt;label&gt;What went especially well?&lt;/label&gt;&lt;textarea id=&quot;strengths&quot; data-autogrow placeholder=&quot;Strong moments, preparation, delivery, audience engagement...&quot;&gt;&lt;/textarea&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Top recommendations for next meeting&lt;/label&gt;&lt;textarea id=&quot;overallRec&quot; data-autogrow placeholder=&quot;2–4 focused recommendations...&quot;&gt;&lt;/textarea&gt;&lt;/div&gt;&lt;/div&gt;&lt;h3 style=&quot;margin:14px 0 8px;color:var(--tm-blue)&quot;&gt;Auto-collected recommendations&lt;/h3&gt;&lt;ul class=&quot;recs-list&quot; id=&quot;autoRecs&quot;&gt;&lt;li&gt;No recommendations marked yet.&lt;/li&gt;&lt;/ul&gt;&lt;div class=&quot;actions&quot; style=&quot;margin-top:15px&quot;&gt;&lt;button class=&quot;action&quot; onclick=&quot;printReport()&quot;&gt;Print / Save as PDF&lt;/button&gt;&lt;button class=&quot;action secondary&quot; onclick=&quot;copyReport()&quot;&gt;Copy Summary&lt;/button&gt;&lt;button class=&quot;action secondary&quot; onclick=&quot;saveNow()&quot;&gt;Save in Browser&lt;/button&gt;&lt;button class=&quot;remove&quot; onclick=&quot;resetAll()&quot;&gt;Reset Meeting&lt;/button&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;div class=&quot;footer-note&quot;&gt;Reusable for any Toastmasters club. Data is saved locally in this browser. Print/PDF mode expands note boxes to avoid clipping.&lt;/div&gt;
+&lt;/main&gt;
+&lt;script&gt;
+const fixedRoleDefs=[[&quot;Sergeant at Arms (SAA)&quot;,[&quot;Meeting room / online setup ready before start&quot;,&quot;Meeting opened on time with energy and protocol&quot;,&quot;Guest / member housekeeping instructions were clear&quot;,&quot;Introduced Presiding Officer correctly&quot;,&quot;Supported smooth transitions and logistics&quot;]],[&quot;Presiding Officer (PO)&quot;,[&quot;Welcomed members and guests warmly&quot;,&quot;Handled club business efficiently&quot;,&quot;Introduced TMOD with correct context&quot;,&quot;Maintained professional meeting tone&quot;,&quot;Closed / handed over meeting cleanly&quot;]],[&quot;Toastmaster of the Day (TMOD)&quot;,[&quot;Theme and meeting flow were introduced clearly&quot;,&quot;Role players were introduced effectively&quot;,&quot;Transitions between segments were smooth&quot;,&quot;Energy, audience engagement and time awareness were strong&quot;,&quot;Session had a clear beginning, middle and closure&quot;]],[&quot;Timer&quot;,[&quot;Explained timing rules and signals clearly&quot;,&quot;Displayed signals at correct times&quot;,&quot;Tracked all timed segments accurately&quot;,&quot;Presented concise timer report&quot;,&quot;Timing supported meeting discipline&quot;]],[&quot;Ah-Counter&quot;,[&quot;Explained filler-word role clearly&quot;,&quot;Tracked filler words / unnecessary repetitions&quot;,&quot;Observed multiple speakers consistently&quot;,&quot;Report was specific and concise&quot;,&quot;Shared useful patterns without embarrassing speakers&quot;]],[&quot;Grammarian&quot;,[&quot;Introduced Word of the Day clearly&quot;,&quot;Explained grammarian role&quot;,&quot;Tracked good usage and improvement opportunities&quot;,&quot;Noted memorable phrases / language&quot;,&quot;Delivered balanced and educational report&quot;]],[&quot;Speech Evaluator(s)&quot;,[&quot;Evaluation linked to speech objectives&quot;,&quot;Specific strengths were identified&quot;,&quot;Recommendations were actionable&quot;,&quot;Evaluation was balanced and encouraging&quot;,&quot;Evaluator stayed within time&quot;]],[&quot;Listener&quot;,[&quot;Listener role was explained&quot;,&quot;Questions reflected actual meeting content&quot;,&quot;Audience participation was encouraged&quot;,&quot;Questions were fair and varied&quot;,&quot;Segment was concise and engaging&quot;]],[&quot;Table Topics Master&quot;,[&quot;Topic / format was explained clearly&quot;,&quot;Questions were concise and open-ended&quot;,&quot;Topics offered variety and creativity&quot;,&quot;Speakers were selected smoothly and fairly&quot;,&quot;Segment stayed energetic and within time&quot;]],[&quot;General Evaluator (Self-check)&quot;,[&quot;Explained GE team / evaluation purpose&quot;,&quot;Observed the entire meeting, not only speeches&quot;,&quot;Balanced appreciation with improvement points&quot;,&quot;Gave specific examples and actionable recommendations&quot;,&quot;Delivered report within allotted time&quot;]]];
+const preparedChecklist=[&quot;Speech objective / project context was clear&quot;,&quot;Opening created interest&quot;,&quot;Speech had clear structure and flow&quot;,&quot;Delivery supported the message&quot;,&quot;Audience connection was strong&quot;,&quot;Conclusion was effective&quot;,&quot;Speaker stayed within allotted time&quot;];
+const ttChecklist=[&quot;Responded directly to the topic&quot;,&quot;Used a beginning–middle–end structure&quot;,&quot;Showed spontaneity / creativity&quot;,&quot;Maintained audience connection&quot;,&quot;Stayed within allotted time&quot;];
+let state={fixed:fixedRoleDefs.map(()=&gt;({done:[],rec:[],note:&quot;&quot;})),prepared:[],tt:[]};
+function blankPrepared(){return{name:&quot;&quot;,title:&quot;&quot;,objective:&quot;&quot;,time:&quot;&quot;,done:[],rec:[],note:&quot;&quot;}}function blankTT(){return{name:&quot;&quot;,title:&quot;&quot;,time:&quot;&quot;,done:[],rec:[],note:&quot;&quot;}}
+function escapeHtml(s=&quot;&quot;){return String(s).replace(/[&amp;&lt;&gt;&quot;&#x27;]/g,m=&gt;({&quot;&amp;&quot;:&quot;&amp;amp;&quot;,&quot;&lt;&quot;:&quot;&amp;lt;&quot;,&quot;&gt;&quot;:&quot;&amp;gt;&quot;,&#x27;&quot;&#x27;:&quot;&amp;quot;&quot;,&quot;&#x27;&quot;:&quot;&amp;#039;&quot;}[m]))}
+function renderChecklist(items,prefix,obj){return `&lt;div class=&quot;items&quot;&gt;`+items.map((text,i)=&gt;`&lt;div class=&quot;item ${obj.done[i]?&#x27;done-row&#x27;:obj.rec[i]?&#x27;rec-row&#x27;:&#x27;&#x27;}&quot; id=&quot;${prefix}-row-${i}&quot;&gt;&lt;input class=&quot;donebox&quot; type=&quot;checkbox&quot; ${obj.done[i]?&#x27;checked&#x27;:&#x27;&#x27;} onchange=&quot;setDone(&#x27;${prefix}&#x27;,${i},this.checked)&quot;&gt;&lt;div class=&quot;item-text&quot;&gt;${escapeHtml(text)}&lt;/div&gt;&lt;button type=&quot;button&quot; class=&quot;recbtn ${obj.rec[i]?&#x27;active&#x27;:&#x27;&#x27;}&quot; onclick=&quot;toggleRec(&#x27;${prefix}&#x27;,${i})&quot;&gt;Recommend&lt;/button&gt;&lt;/div&gt;`).join(&quot;&quot;)+`&lt;/div&gt;`}
+function renderFixed(){const root=document.getElementById(&quot;fixedRoles&quot;);root.innerHTML=fixedRoleDefs.map(([name,items],idx)=&gt;{const obj=state.fixed[idx]||{done:[],rec:[],note:&quot;&quot;};state.fixed[idx]=obj;const score=(obj.done||[]).filter(Boolean).length;return `&lt;article class=&quot;role-card&quot;&gt;&lt;div class=&quot;role-head&quot;&gt;&lt;div class=&quot;role-title&quot;&gt;${escapeHtml(name)}&lt;/div&gt;&lt;div class=&quot;role-score&quot;&gt;${score} / ${items.length}&lt;/div&gt;&lt;/div&gt;${renderChecklist(items,`fixed-${idx}`,obj)}&lt;div class=&quot;role-note&quot;&gt;&lt;label&gt;Role notes&lt;/label&gt;&lt;textarea data-autogrow oninput=&quot;setNote(&#x27;fixed&#x27;,${idx},this.value)&quot; placeholder=&quot;Specific observation for ${escapeHtml(name)}&quot;&gt;${escapeHtml(obj.note||&quot;&quot;)}&lt;/textarea&gt;&lt;/div&gt;&lt;/article&gt;`}).join(&quot;&quot;);bindAutogrow()}
+function renderPrepared(){const root=document.getElementById(&quot;preparedGrid&quot;);if(!state.prepared.length){root.innerHTML=`&lt;div class=&quot;empty-note&quot;&gt;No prepared speakers added. Use “+ Add Prepared Speaker”.&lt;/div&gt;`;return}root.innerHTML=state.prepared.map((obj,idx)=&gt;{const score=(obj.done||[]).filter(Boolean).length;return `&lt;article class=&quot;speaker-card&quot;&gt;&lt;div class=&quot;speaker-head&quot;&gt;&lt;div class=&quot;speaker-title&quot;&gt;Prepared Speaker ${idx+1}&lt;/div&gt;&lt;div class=&quot;role-score&quot;&gt;${score} / ${preparedChecklist.length}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;speaker-fields prepared&quot;&gt;&lt;div&gt;&lt;label&gt;Speaker Name&lt;/label&gt;&lt;input type=&quot;text&quot; value=&quot;${escapeHtml(obj.name)}&quot; oninput=&quot;setSpeakerField(&#x27;prepared&#x27;,${idx},&#x27;name&#x27;,this.value)&quot; placeholder=&quot;Name&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Speech Title&lt;/label&gt;&lt;input type=&quot;text&quot; value=&quot;${escapeHtml(obj.title)}&quot; oninput=&quot;setSpeakerField(&#x27;prepared&#x27;,${idx},&#x27;title&#x27;,this.value)&quot; placeholder=&quot;Speech title&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Speech Objective&lt;/label&gt;&lt;input type=&quot;text&quot; value=&quot;${escapeHtml(obj.objective)}&quot; oninput=&quot;setSpeakerField(&#x27;prepared&#x27;,${idx},&#x27;objective&#x27;,this.value)&quot; placeholder=&quot;Project / purpose / objective&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Time Taken&lt;/label&gt;&lt;input type=&quot;text&quot; value=&quot;${escapeHtml(obj.time)}&quot; oninput=&quot;setSpeakerField(&#x27;prepared&#x27;,${idx},&#x27;time&#x27;,this.value)&quot; placeholder=&quot;e.g. 6:32&quot;&gt;&lt;/div&gt;&lt;/div&gt;${renderChecklist(preparedChecklist,`prepared-${idx}`,obj)}&lt;div class=&quot;role-note&quot;&gt;&lt;label&gt;Speaker observations&lt;/label&gt;&lt;textarea data-autogrow oninput=&quot;setNote(&#x27;prepared&#x27;,${idx},this.value)&quot; placeholder=&quot;Strengths, recommendations, memorable moments...&quot;&gt;${escapeHtml(obj.note||&quot;&quot;)}&lt;/textarea&gt;&lt;/div&gt;&lt;/article&gt;`}).join(&quot;&quot;);bindAutogrow()}
+function renderTT(){const root=document.getElementById(&quot;ttGrid&quot;);if(!state.tt.length){root.innerHTML=`&lt;div class=&quot;empty-note&quot;&gt;No Table Topics speakers added. Use “+ Add Table Topics Speaker”.&lt;/div&gt;`;return}root.innerHTML=state.tt.map((obj,idx)=&gt;{const score=(obj.done||[]).filter(Boolean).length;return `&lt;article class=&quot;speaker-card&quot;&gt;&lt;div class=&quot;speaker-head&quot;&gt;&lt;div class=&quot;speaker-title&quot;&gt;Table Topics Speaker ${idx+1}&lt;/div&gt;&lt;div class=&quot;role-score&quot;&gt;${score} / ${ttChecklist.length}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;speaker-fields&quot;&gt;&lt;div&gt;&lt;label&gt;Speaker Name&lt;/label&gt;&lt;input type=&quot;text&quot; value=&quot;${escapeHtml(obj.name)}&quot; oninput=&quot;setSpeakerField(&#x27;tt&#x27;,${idx},&#x27;name&#x27;,this.value)&quot; placeholder=&quot;Name&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Table Topics Speech Title / Topic&lt;/label&gt;&lt;input type=&quot;text&quot; value=&quot;${escapeHtml(obj.title)}&quot; oninput=&quot;setSpeakerField(&#x27;tt&#x27;,${idx},&#x27;title&#x27;,this.value)&quot; placeholder=&quot;Speech title / prompt&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Time Taken&lt;/label&gt;&lt;input type=&quot;text&quot; value=&quot;${escapeHtml(obj.time)}&quot; oninput=&quot;setSpeakerField(&#x27;tt&#x27;,${idx},&#x27;time&#x27;,this.value)&quot; placeholder=&quot;e.g. 1:42&quot;&gt;&lt;/div&gt;&lt;/div&gt;${renderChecklist(ttChecklist,`tt-${idx}`,obj)}&lt;div class=&quot;role-note&quot;&gt;&lt;label&gt;Speaker observations&lt;/label&gt;&lt;textarea data-autogrow oninput=&quot;setNote(&#x27;tt&#x27;,${idx},this.value)&quot; placeholder=&quot;Strengths and recommendation...&quot;&gt;${escapeHtml(obj.note||&quot;&quot;)}&lt;/textarea&gt;&lt;/div&gt;&lt;/article&gt;`}).join(&quot;&quot;);bindAutogrow()}
+function getTarget(prefix){const [type,idxs]=prefix.split(&quot;-&quot;);const idx=Number(idxs);if(type===&quot;fixed&quot;)return state.fixed[idx];if(type===&quot;prepared&quot;)return state.prepared[idx];if(type===&quot;tt&quot;)return state.tt[idx]}
 function setDone(prefix,i,val){const obj=getTarget(prefix);obj.done[i]=val;if(val)obj.rec[i]=false;persistAndRender()}function toggleRec(prefix,i){const obj=getTarget(prefix);obj.rec[i]=!obj.rec[i];if(obj.rec[i])obj.done[i]=false;persistAndRender()}function setNote(type,idx,val){state[type][idx].note=val;saveState();updateSummary()}function setSpeakerField(type,idx,key,val){state[type][idx][key]=val;saveState()}
 function addPrepared(){state.prepared.push(blankPrepared());saveState();renderPrepared();updateSummary()}function removePrepared(){if(!state.prepared.length)return;state.prepared.pop();saveState();renderPrepared();updateSummary()}function addTT(){state.tt.push(blankTT());saveState();renderTT();updateSummary()}function removeTT(){if(!state.tt.length)return;state.tt.pop();saveState();renderTT();updateSummary()}function persistAndRender(){saveState();renderAll();updateSummary()}function renderAll(){renderFixed();renderPrepared();renderTT()}
-function allObjects(){return[...state.fixed.map((obj,i)=>({name:fixedRoleDefs[i][0],items:fixedRoleDefs[i][1],obj})),...state.prepared.map((obj,i)=>({name:`Prepared Speaker ${i+1}`,items:preparedChecklist,obj})),...state.tt.map((obj,i)=>({name:`Table Topics Speaker ${i+1}`,items:ttChecklist,obj}))]}
-function updateSummary(){let done=0,rec=0,total=0,recs=[];allObjects().forEach(({name,items,obj})=>{items.forEach((it,i)=>{total++;if(obj.done[i])done++;else if(obj.rec[i]){rec++;recs.push(`${name}: ${it}`)}})});const pct=total?Math.round(done/total*100):0;doneCount.textContent=done;recCount.textContent=rec;completion.textContent=pct+"%";grade.className="n grade";if(done+rec===0)grade.textContent="Not Rated";else if(pct>=90&&rec<=5){grade.textContent="Excellent";grade.classList.add("excellent")}else if(pct>=75){grade.textContent="Very Good";grade.classList.add("good")}else if(pct>=55){grade.textContent="Needs Attention";grade.classList.add("watch")}else{grade.textContent="Improve";grade.classList.add("improve")}autoRecs.innerHTML=recs.length?recs.map(x=>`<li>${escapeHtml(x)}</li>`).join(""):"<li>No recommendations marked yet.</li>"}
-function pageMeta(){return{clubName:clubName.value,area:area.value,division:division.value,districtNo:districtNo.value,meetingDate:meetingDate.value,meetingNo:meetingNo.value,theme:theme.value,geName:geName.value,strengths:strengths.value,overallRec:overallRec.value}}function saveState(){localStorage.setItem("gsc-ge-v3",JSON.stringify({state,meta:pageMeta()}))}function saveNow(){saveState();alert("Saved in this browser.")}
-function loadState(){try{const saved=JSON.parse(localStorage.getItem("gsc-ge-v3")||"null");if(saved){if(saved.state)state=saved.state;const m=saved.meta||{};clubName.value=m.clubName||"";area.value=m.area||"";division.value=m.division||"";districtNo.value=m.districtNo||"";meetingDate.value=m.meetingDate||"";meetingNo.value=m.meetingNo||"";theme.value=m.theme||"";geName.value=m.geName||"";strengths.value=m.strengths||"";overallRec.value=m.overallRec||"";updateClubBadge();return}}catch(e){}state.prepared=[blankPrepared(),blankPrepared()];state.tt=Array.from({length:10},blankTT)}
-function resetAll(){if(!confirm("Reset the complete meeting report?"))return;localStorage.removeItem("gsc-ge-v3");state={fixed:fixedRoleDefs.map(()=>({done:[],rec:[],note:""})),prepared:[blankPrepared(),blankPrepared()],tt:Array.from({length:10},blankTT)};clubName.value="";area.value="";division.value="";districtNo.value="";meetingDate.value="";meetingNo.value="";theme.value="";geName.value="";strengths.value="";overallRec.value="";updateClubBadge();renderAll();updateSummary();bindAutogrow()}
-function bindAutogrow(){document.querySelectorAll("textarea[data-autogrow]").forEach(t=>{t.style.height="auto";t.style.height=Math.max(76,t.scrollHeight)+"px";t.oninput=((orig=>function(e){if(orig)orig.call(this,e);this.style.height="auto";this.style.height=Math.max(76,this.scrollHeight)+"px"})(t.oninput))})}
-function expandAllTextareas(){document.querySelectorAll("textarea").forEach(t=>{t.style.height="auto";t.style.height=(t.scrollHeight+6)+"px";t.style.overflow="visible"})}function printReport(){expandAllTextareas();setTimeout(()=>window.print(),50)}window.addEventListener("beforeprint",expandAllTextareas);
-function copyReport(){const lines=[];lines.push(`${(clubName.value||"TOASTMASTERS CLUB").toUpperCase()} – GENERAL EVALUATOR REPORT`);lines.push(`Club: ${clubName.value||"-"} | Area: ${area.value||"-"} | Division: ${division.value||"-"} | District: ${districtNo.value||"-"}`);lines.push(`Date: ${meetingDate.value||"-"} | Meeting: ${meetingNo.value||"-"} | Theme: ${theme.value||"-"} | GE: ${geName.value||"-"}`);lines.push(`Grade: ${grade.textContent} | Done: ${doneCount.textContent} | Recommendations: ${recCount.textContent} | Completion: ${completion.textContent}`);lines.push("");state.fixed.forEach((obj,i)=>{const done=[],rec=[];fixedRoleDefs[i][1].forEach((it,j)=>{if(obj.done[j])done.push(it);if(obj.rec[j])rec.push(it)});if(done.length||rec.length||obj.note){lines.push(fixedRoleDefs[i][0]);if(done.length)lines.push("  Done: "+done.join("; "));if(rec.length)lines.push("  Recommend: "+rec.join("; "));if(obj.note)lines.push("  Notes: "+obj.note)}});state.prepared.forEach((obj,i)=>{lines.push("");lines.push(`Prepared Speaker ${i+1}: ${obj.name||"-"}`);lines.push(`  Speech Title: ${obj.title||"-"}`);lines.push(`  Objective: ${obj.objective||"-"}`);lines.push(`  Time Taken: ${obj.time||"-"}`);const done=[],rec=[];preparedChecklist.forEach((it,j)=>{if(obj.done[j])done.push(it);if(obj.rec[j])rec.push(it)});if(done.length)lines.push("  Done: "+done.join("; "));if(rec.length)lines.push("  Recommend: "+rec.join("; "));if(obj.note)lines.push("  Notes: "+obj.note)});state.tt.forEach((obj,i)=>{lines.push("");lines.push(`Table Topics Speaker ${i+1}: ${obj.name||"-"}`);lines.push(`  Speech Title / Topic: ${obj.title||"-"}`);lines.push(`  Time Taken: ${obj.time||"-"}`);const done=[],rec=[];ttChecklist.forEach((it,j)=>{if(obj.done[j])done.push(it);if(obj.rec[j])rec.push(it)});if(done.length)lines.push("  Done: "+done.join("; "));if(rec.length)lines.push("  Recommend: "+rec.join("; "));if(obj.note)lines.push("  Notes: "+obj.note)});if(strengths.value)lines.push("\nStrengths: "+strengths.value);if(overallRec.value)lines.push("Overall Recommendations: "+overallRec.value);navigator.clipboard.writeText(lines.join("\n")).then(()=>alert("GE report copied to clipboard."))}
-function updateClubBadge(){const name=(clubName.value||"Club").trim();clubBadge.textContent=`${name} Meeting Report`}["clubName","area","division","districtNo","meetingDate","meetingNo","theme","geName","strengths","overallRec"].forEach(id=>{document.getElementById(id).addEventListener("input",()=>{if(id==="clubName")updateClubBadge();saveState();expandAllTextareas()})});
+function allObjects(){return[...state.fixed.map((obj,i)=&gt;({name:fixedRoleDefs[i][0],items:fixedRoleDefs[i][1],obj})),...state.prepared.map((obj,i)=&gt;({name:`Prepared Speaker ${i+1}`,items:preparedChecklist,obj})),...state.tt.map((obj,i)=&gt;({name:`Table Topics Speaker ${i+1}`,items:ttChecklist,obj}))]}
+function updateSummary(){let done=0,rec=0,total=0,recs=[];allObjects().forEach(({name,items,obj})=&gt;{items.forEach((it,i)=&gt;{total++;if(obj.done[i])done++;else if(obj.rec[i]){rec++;recs.push(`${name}: ${it}`)}})});const pct=total?Math.round(done/total*100):0;doneCount.textContent=done;recCount.textContent=rec;completion.textContent=pct+&quot;%&quot;;grade.className=&quot;n grade&quot;;if(done+rec===0)grade.textContent=&quot;Not Rated&quot;;else if(pct&gt;=90&amp;&amp;rec&lt;=5){grade.textContent=&quot;Excellent&quot;;grade.classList.add(&quot;excellent&quot;)}else if(pct&gt;=75){grade.textContent=&quot;Very Good&quot;;grade.classList.add(&quot;good&quot;)}else if(pct&gt;=55){grade.textContent=&quot;Needs Attention&quot;;grade.classList.add(&quot;watch&quot;)}else{grade.textContent=&quot;Improve&quot;;grade.classList.add(&quot;improve&quot;)}autoRecs.innerHTML=recs.length?recs.map(x=&gt;`&lt;li&gt;${escapeHtml(x)}&lt;/li&gt;`).join(&quot;&quot;):&quot;&lt;li&gt;No recommendations marked yet.&lt;/li&gt;&quot;}
+function pageMeta(){return{clubName:clubName.value,area:area.value,division:division.value,districtNo:districtNo.value,meetingDate:meetingDate.value,meetingNo:meetingNo.value,theme:theme.value,geName:geName.value,strengths:strengths.value,overallRec:overallRec.value}}function saveState(){localStorage.setItem(&quot;gsc-ge-v3&quot;,JSON.stringify({state,meta:pageMeta()}))}function saveNow(){saveState();alert(&quot;Saved in this browser.&quot;)}
+function loadState(){try{const saved=JSON.parse(localStorage.getItem(&quot;gsc-ge-v3&quot;)||&quot;null&quot;);if(saved){if(saved.state)state=saved.state;const m=saved.meta||{};clubName.value=m.clubName||&quot;&quot;;area.value=m.area||&quot;&quot;;division.value=m.division||&quot;&quot;;districtNo.value=m.districtNo||&quot;&quot;;meetingDate.value=m.meetingDate||&quot;&quot;;meetingNo.value=m.meetingNo||&quot;&quot;;theme.value=m.theme||&quot;&quot;;geName.value=m.geName||&quot;&quot;;strengths.value=m.strengths||&quot;&quot;;overallRec.value=m.overallRec||&quot;&quot;;updateClubBadge();return}}catch(e){}state.prepared=[blankPrepared(),blankPrepared()];state.tt=Array.from({length:10},blankTT)}
+function resetAll(){if(!confirm(&quot;Reset the complete meeting report?&quot;))return;localStorage.removeItem(&quot;gsc-ge-v3&quot;);state={fixed:fixedRoleDefs.map(()=&gt;({done:[],rec:[],note:&quot;&quot;})),prepared:[blankPrepared(),blankPrepared()],tt:Array.from({length:10},blankTT)};clubName.value=&quot;&quot;;area.value=&quot;&quot;;division.value=&quot;&quot;;districtNo.value=&quot;&quot;;meetingDate.value=&quot;&quot;;meetingNo.value=&quot;&quot;;theme.value=&quot;&quot;;geName.value=&quot;&quot;;strengths.value=&quot;&quot;;overallRec.value=&quot;&quot;;updateClubBadge();renderAll();updateSummary();bindAutogrow()}
+function bindAutogrow(){document.querySelectorAll(&quot;textarea[data-autogrow]&quot;).forEach(t=&gt;{t.style.height=&quot;auto&quot;;t.style.height=Math.max(76,t.scrollHeight)+&quot;px&quot;;t.oninput=((orig=&gt;function(e){if(orig)orig.call(this,e);this.style.height=&quot;auto&quot;;this.style.height=Math.max(76,this.scrollHeight)+&quot;px&quot;})(t.oninput))})}
+function expandAllTextareas(){document.querySelectorAll(&quot;textarea&quot;).forEach(t=&gt;{t.style.height=&quot;auto&quot;;t.style.height=(t.scrollHeight+6)+&quot;px&quot;;t.style.overflow=&quot;visible&quot;})}function printReport(){expandAllTextareas();setTimeout(()=&gt;window.print(),50)}window.addEventListener(&quot;beforeprint&quot;,expandAllTextareas);
+function copyReport(){const lines=[];lines.push(`${(clubName.value||&quot;TOASTMASTERS CLUB&quot;).toUpperCase()} – GENERAL EVALUATOR REPORT`);lines.push(`Club: ${clubName.value||&quot;-&quot;} | Area: ${area.value||&quot;-&quot;} | Division: ${division.value||&quot;-&quot;} | District: ${districtNo.value||&quot;-&quot;}`);lines.push(`Date: ${meetingDate.value||&quot;-&quot;} | Meeting: ${meetingNo.value||&quot;-&quot;} | Theme: ${theme.value||&quot;-&quot;} | GE: ${geName.value||&quot;-&quot;}`);lines.push(`Grade: ${grade.textContent} | Done: ${doneCount.textContent} | Recommendations: ${recCount.textContent} | Completion: ${completion.textContent}`);lines.push(&quot;&quot;);state.fixed.forEach((obj,i)=&gt;{const done=[],rec=[];fixedRoleDefs[i][1].forEach((it,j)=&gt;{if(obj.done[j])done.push(it);if(obj.rec[j])rec.push(it)});if(done.length||rec.length||obj.note){lines.push(fixedRoleDefs[i][0]);if(done.length)lines.push(&quot;  Done: &quot;+done.join(&quot;; &quot;));if(rec.length)lines.push(&quot;  Recommend: &quot;+rec.join(&quot;; &quot;));if(obj.note)lines.push(&quot;  Notes: &quot;+obj.note)}});state.prepared.forEach((obj,i)=&gt;{lines.push(&quot;&quot;);lines.push(`Prepared Speaker ${i+1}: ${obj.name||&quot;-&quot;}`);lines.push(`  Speech Title: ${obj.title||&quot;-&quot;}`);lines.push(`  Objective: ${obj.objective||&quot;-&quot;}`);lines.push(`  Time Taken: ${obj.time||&quot;-&quot;}`);const done=[],rec=[];preparedChecklist.forEach((it,j)=&gt;{if(obj.done[j])done.push(it);if(obj.rec[j])rec.push(it)});if(done.length)lines.push(&quot;  Done: &quot;+done.join(&quot;; &quot;));if(rec.length)lines.push(&quot;  Recommend: &quot;+rec.join(&quot;; &quot;));if(obj.note)lines.push(&quot;  Notes: &quot;+obj.note)});state.tt.forEach((obj,i)=&gt;{lines.push(&quot;&quot;);lines.push(`Table Topics Speaker ${i+1}: ${obj.name||&quot;-&quot;}`);lines.push(`  Speech Title / Topic: ${obj.title||&quot;-&quot;}`);lines.push(`  Time Taken: ${obj.time||&quot;-&quot;}`);const done=[],rec=[];ttChecklist.forEach((it,j)=&gt;{if(obj.done[j])done.push(it);if(obj.rec[j])rec.push(it)});if(done.length)lines.push(&quot;  Done: &quot;+done.join(&quot;; &quot;));if(rec.length)lines.push(&quot;  Recommend: &quot;+rec.join(&quot;; &quot;));if(obj.note)lines.push(&quot;  Notes: &quot;+obj.note)});if(strengths.value)lines.push(&quot;\nStrengths: &quot;+strengths.value);if(overallRec.value)lines.push(&quot;Overall Recommendations: &quot;+overallRec.value);navigator.clipboard.writeText(lines.join(&quot;\n&quot;)).then(()=&gt;alert(&quot;GE report copied to clipboard.&quot;))}
+function updateClubBadge(){const name=(clubName.value||&quot;Club&quot;).trim();clubBadge.textContent=`${name} Meeting Report`}[&quot;clubName&quot;,&quot;area&quot;,&quot;division&quot;,&quot;districtNo&quot;,&quot;meetingDate&quot;,&quot;meetingNo&quot;,&quot;theme&quot;,&quot;geName&quot;,&quot;strengths&quot;,&quot;overallRec&quot;].forEach(id=&gt;{document.getElementById(id).addEventListener(&quot;input&quot;,()=&gt;{if(id===&quot;clubName&quot;)updateClubBadge();saveState();expandAllTextareas()})});
 loadState();updateClubBadge();renderAll();updateSummary();expandAllTextareas();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe></section>
+ <section class="tool-section" id="timer"><div class="tool-head"><div><h2>⏱️ Timer</h2><p>Standalone timing tool embedded in this page.</p></div><div class="tool-actions"><button class="tool-btn" onclick="TMHub.top()">↑ Home</button><button class="tool-btn" onclick="TMHub.focus('timer')">⛶ Expand</button></div></div><iframe id="frame-timer" title="Timer" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot; /&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+&lt;title&gt;Timer — Standalone&lt;/title&gt;
+&lt;style&gt;
+  :root {
+    --bg: #0c0c11;
+    --panel: #15151d;
+    --card: #1b1b26;
+    --border: #2b2b38;
+    --text: #fdfaf4;
+    --muted: #94a3b8;
+    --amber: #fbbf24;
+    --amber-dark: #201200;
+    --green: #1c8a4c;
+    --amber-badge: rgba(251,191,36,.15);
+    --emerald-badge: rgba(16,185,129,.15);
+    --rose-badge: rgba(244,63,94,.15);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif;
+  }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  [hidden] { display: none !important; }
+
+  /* ---- top bar / list screen ---- */
+  .topbar {
+    display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid #1f1f29; padding: 16px 24px;
+  }
+  .topbar button.back {
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    padding: 6px; border-radius: 6px; display: flex; align-items: center;
+  }
+  .topbar button.back:hover { background: #1f1f29; }
+  .topbar .title { font-size: 14px; font-weight: 600; }
+
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 24px; }
+  .page-head {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    padding: 24px; border-bottom: 1px solid #1f1f29;
+  }
+  .page-head h1 { margin: 0 0 4px; font-size: 20px; }
+  .page-head p { margin: 0; color: var(--muted); font-size: 13px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer;
+    border: 1px solid transparent; padding: 10px 16px; min-height: 40px;
+  }
+  .btn-amber { background: var(--amber); color: var(--amber-dark); }
+  .btn-amber:hover { background: #fcd34d; }
+  .btn-outline { background: transparent; border-color: #334155; color: var(--text); }
+  .btn-outline:hover { border-color: var(--amber); color: var(--amber); }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+  .btn-sm { padding: 6px 10px; min-height: auto; font-size: 12px; }
+
+  .session-card {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    border: 1px solid #262633; background: var(--card); border-radius: 12px;
+    padding: 16px; margin-bottom: 10px; cursor: pointer;
+  }
+  .session-card:hover { border-color: #3b3b4d; }
+  .session-card .meta { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .badge {
+    display: inline-flex; align-items: center; border-radius: 999px; padding: 2px 10px;
+    font-size: 11px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase;
+  }
+  .badge-active { background: var(--emerald-badge); color: #34d399; }
+  .badge-ended { background: #26262f; color: var(--muted); }
+  .icon-btn {
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    padding: 6px; border-radius: 6px;
+  }
+  .icon-btn:hover { background: #262633; color: #fb7185; }
+  .empty { text-align: center; color: var(--muted); padding: 40px; font-size: 13px; }
+
+  /* ---- setup / roster / report screens ---- */
+  .session-shell { max-width: 880px; margin: 0 auto; padding: 32px 24px; }
+  .eyebrow { font-family: ui-monospace, monospace; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--amber); margin: 0 0 4px; }
+  h2.title { font-size: 24px; font-weight: 600; margin: 4px 0 6px; }
+  .lede { color: var(--muted); font-size: 14px; margin: 0 0 24px; max-width: 520px; }
+
+  label.field { display: block; margin-bottom: 20px; }
+  label.field .lbl { display: block; margin-bottom: 8px; font-size: 11px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); }
+  input[type=text], input[type=number], select {
+    width: 100%; min-height: 44px; border-radius: 8px; border: 1px solid #334155;
+    background: #1e293b; color: #fff; padding: 10px 14px; font-size: 14px; outline: none;
+  }
+  input[type=text]:focus, input[type=number]:focus, select:focus { border-color: var(--amber); }
+  input::placeholder { color: #64748b; }
+
+  .roster-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
+  .pill { display: flex; align-items: baseline; gap: 8px; border: 1px solid #334155; background: #1e293b; border-radius: 999px; padding: 8px 16px; font-size: 13px; }
+  .pill .k { font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--amber); }
+
+  .add-speaker { margin-bottom: 28px; border: 1px solid #334155; background: rgba(30,41,59,.6); border-radius: 16px; padding: 20px; }
+  .add-speaker h3 { margin: 0 0 16px; font-size: 11px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); }
+  .add-grid { display: grid; grid-template-columns: 1.3fr 1.3fr auto; gap: 14px; align-items: end; }
+  .add-grid .full { grid-column: 1 / -1; }
+  @media (max-width: 680px) { .add-grid { grid-template-columns: 1fr; } }
+  .custom-thresholds { display: flex; gap: 10px; }
+  .custom-thresholds label.field { flex: 1; margin-bottom: 0; }
+  .checkline { display: flex; align-items: center; gap: 10px; font-size: 14px; min-height: 44px; }
+  .checkline input { width: 20px; height: 20px; accent-color: var(--amber); }
+
+  .speaker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .speaker-card { border: 1px solid #334155; background: rgba(30,41,59,.6); border-radius: 14px; padding: 16px; }
+  .speaker-card .nm { font-size: 18px; font-weight: 600; margin: 0 0 2px; }
+  .speaker-card .ty { font-size: 12px; color: var(--muted); margin: 0 0 14px; }
+  .row-between { display: flex; align-items: center; justify-content: between; justify-content: space-between; gap: 8px; }
+  .status-pill { border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; }
+  .status-qualified { background: var(--emerald-badge); color: #34d399; }
+  .status-warn { background: var(--amber-badge); color: #fcd34d; }
+  .status-bad { background: var(--rose-badge); color: #fb7185; }
+  .empty-roster { border: 1px dashed #334155; border-radius: 12px; padding: 24px; text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+  .finish-row { display: flex; justify-content: flex-end; }
+
+  /* ---- fullscreen timer ---- */
+  .fullscreen {
+    position: fixed; inset: 0; z-index: 999; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; color: #fdfaf4; transition: background-color .7s;
+  }
+  .fs-top { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 24px 28px; }
+  .fs-top .who { font-size: 14px; }
+  .fs-top .badge-phase { border-radius: 999px; border: 1px solid rgba(255,255,255,.25); background: rgba(0,0,0,.3); padding: 6px 14px; font-family: ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; }
+  .fs-center { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 0 24px; text-align: center; }
+  .fs-cyclabel { font-family: ui-monospace, monospace; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; opacity: .7; margin-bottom: 6px; }
+  .fs-cycval { max-width: 900px; font-size: 42px; font-weight: 600; font-style: italic; }
+  .fs-clock { font-family: ui-monospace, monospace; font-size: 68px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .fs-counters { display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap; justify-content: center; }
+  .fs-counters button {
+    display: flex; align-items: center; gap: 10px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.3); background: rgba(0,0,0,.25); color: #fff;
+    padding: 12px 20px; font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+  .fs-counters button:hover { background: rgba(0,0,0,.4); }
+  .fs-hint { position: absolute; bottom: 28px; left: 32px; font-family: ui-monospace, monospace; font-size: 12px; opacity: .55; }
+  .fs-end { position: absolute; bottom: 28px; right: 32px; }
+  .fs-end button { border: 1px solid rgba(255,255,255,.35); background: rgba(0,0,0,.35); color: #fff; border-radius: 8px; padding: 12px 20px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .fs-end button:hover { background: rgba(0,0,0,.55); }
+  .pop-layer { position: absolute; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+  .pop-emoji { font-size: 7rem; animation: popAnim 2s ease-out forwards; }
+  @keyframes popAnim {
+    0% { transform: scale(.4); opacity: 0; }
+    15% { transform: scale(1.25); opacity: 1; }
+    30% { transform: scale(1); opacity: 1; }
+    80% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.05); opacity: 0; }
+  }
+
+  /* ---- report screen ---- */
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .report-table-wrap { overflow-x: auto; border: 1px solid #334155; border-radius: 12px; margin-bottom: 32px; }
+  thead tr { text-align: left; font-size: 11px; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); }
+  th, td { padding: 12px 16px; }
+  tbody tr { border-top: 1px solid #334155; }
+  .compare-label { font-size: 14px; margin-bottom: 14px; }
+  .compare-row { display: grid; grid-template-columns: 140px 1fr 64px; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .compare-name { font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .compare-track { position: relative; height: 26px; border-radius: 6px; border: 1px solid #334155; background: #1e293b; overflow: hidden; }
+  .compare-fill { height: 100%; border-radius: 6px 0 0 6px; transition: width .3s; }
+  .compare-time { text-align: right; font-family: ui-monospace, monospace; font-size: 12px; }
+  .legend-row { display: flex; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--muted); }
+  .legend-row .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+
+  .storage-note { border-top: 1px solid #1f1f29; padding: 16px 24px; font-size: 12px; color: var(--muted); text-align: center; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+(function () {
+  &quot;use strict&quot;;
+
+  // ---------- constants (mirrors src/lib/time.ts) ----------
+  var GRACE_SECONDS = 30;
+  var WORD_IDIOM_CYCLE_SECONDS = 15;
+
+  var SPEECH_TYPES = {
+    tableTopics: { key: &quot;tableTopics&quot;, label: &quot;Table Topics&quot;, shortLabel: &quot;Table Topics (1-2 min)&quot;, green: 60, yellow: 90, red: 120, hasGraceBefore: false, hasGraceAfter: true },
+    evaluation: { key: &quot;evaluation&quot;, label: &quot;Evaluation&quot;, shortLabel: &quot;Evaluation (2-3 min)&quot;, green: 120, yellow: 150, red: 180, hasGraceBefore: true, hasGraceAfter: true },
+    speech: { key: &quot;speech&quot;, label: &quot;Speech&quot;, shortLabel: &quot;Speech (5-7 min)&quot;, green: 300, yellow: 360, red: 420, hasGraceBefore: true, hasGraceAfter: true },
+    custom: { key: &quot;custom&quot;, label: &quot;Custom&quot;, shortLabel: &quot;Custom Time&quot;, green: 300, yellow: 360, red: 420, hasGraceBefore: true, hasGraceAfter: true }
+  };
+
+  var PHASE_BG = {
+    pre: &quot;#0c0c11&quot;,
+    &quot;pre-grace&quot;: &quot;#122236&quot;,
+    green: &quot;#1c8a4c&quot;,
+    yellow: &quot;#d19a1f&quot;,
+    red: &quot;#c23a2c&quot;,
+    disqualified: &quot;#c23a2c&quot;
+  };
+  var PHASE_BADGE = { pre: &quot;STANDBY&quot;, &quot;pre-grace&quot;: &quot;STANDBY&quot;, green: &quot;GREEN&quot;, yellow: &quot;YELLOW&quot;, red: &quot;RED&quot;, disqualified: &quot;RED&quot; };
+  var STATUS_META = {
+    under: { label: &quot;Under Time&quot;, tone: &quot;warn&quot; },
+    qualified: { label: &quot;Qualified&quot;, tone: &quot;good&quot; },
+    over: { label: &quot;Over Time&quot;, tone: &quot;warn&quot; },
+    disqualified: { label: &quot;Disqualified&quot;, tone: &quot;bad&quot; }
+  };
+  var BAR_COLOR = { under: &quot;#d19a1f&quot;, qualified: &quot;#1c8a4c&quot;, over: &quot;#d19a1f&quot;, disqualified: &quot;#c23a2c&quot; };
+
+  function formatTime(totalSeconds) {
+    var sign = totalSeconds &lt; 0 ? &quot;-&quot; : &quot;&quot;;
+    var abs = Math.abs(Math.round(totalSeconds));
+    var m = Math.floor(abs / 60);
+    var s = abs % 60;
+    return sign + m + &quot;:&quot; + String(s).padStart(2, &quot;0&quot;);
+  }
+
+  function getPhase(elapsed, thresholds, flags) {
+    var green = thresholds.green, yellow = thresholds.yellow, red = thresholds.red;
+    if (elapsed &lt; green) {
+      if (flags.hasGraceBefore &amp;&amp; elapsed &gt;= green - GRACE_SECONDS) return &quot;pre-grace&quot;;
+      return &quot;pre&quot;;
+    }
+    if (elapsed &lt; yellow) return &quot;green&quot;;
+    if (elapsed &lt; red) return &quot;yellow&quot;;
+    if (flags.hasGraceAfter) return elapsed &lt; red + GRACE_SECONDS ? &quot;red&quot; : &quot;disqualified&quot;;
+    return &quot;red&quot;;
+  }
+
+  function getStatus(elapsed, thresholds, flags) {
+    var green = thresholds.green, red = thresholds.red;
+    var phase = getPhase(elapsed, thresholds, flags);
+    if (phase === &quot;disqualified&quot;) return &quot;disqualified&quot;;
+    var underFloor = flags.hasGraceBefore ? green - GRACE_SECONDS : green;
+    if (elapsed &lt; underFloor) return &quot;under&quot;;
+    if (!flags.hasGraceAfter &amp;&amp; elapsed &gt;= red) return &quot;over&quot;;
+    return &quot;qualified&quot;;
+  }
+
+  function uid() {
+    return &quot;id-&quot; + Date.now().toString(36) + &quot;-&quot; + Math.random().toString(36).slice(2, 9);
+  }
+
+  function esc(s) {
+    return String(s == null ? &quot;&quot; : s).replace(/[&amp;&lt;&gt;&quot;&#x27;]/g, function (c) {
+      return { &quot;&amp;&quot;: &quot;&amp;amp;&quot;, &quot;&lt;&quot;: &quot;&amp;lt;&quot;, &quot;&gt;&quot;: &quot;&amp;gt;&quot;, &#x27;&quot;&#x27;: &quot;&amp;quot;&quot;, &quot;&#x27;&quot;: &quot;&amp;#39;&quot; }[c];
+    });
+  }
+
+  // ---------- persistence ----------
+  var STORAGE_KEY = &quot;tm_standalone_timer_sessions_v1&quot;;
+  function loadSessions() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveSessions() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+  }
+
+  var sessions = loadSessions();
+  var currentId = null;
+  var timingSpeakerId = null;
+  var tickHandle = null;
+  var popTimeout = null;
+
+  function findSession(id) {
+    for (var i = 0; i &lt; sessions.length; i++) if (sessions[i].id === id) return sessions[i];
+    return null;
+  }
+
+  function updateSession(id, patch) {
+    var s = findSession(id);
+    if (!s) return;
+    Object.assign(s, patch);
+    saveSessions();
+    render();
+  }
+
+  // ---------- rendering ----------
+  var app = document.getElementById(&quot;app&quot;);
+
+  function render() {
+    if (tickHandle) { clearInterval(tickHandle); tickHandle = null; }
+
+    if (!currentId) return renderList();
+
+    var session = findSession(currentId);
+    if (!session) { currentId = null; return renderList(); }
+
+    if (timingSpeakerId) {
+      var speaker = null;
+      for (var i = 0; i &lt; session.speakers.length; i++) if (session.speakers[i].id === timingSpeakerId) speaker = session.speakers[i];
+      if (speaker) return renderFullscreenTimer(session, speaker);
+      timingSpeakerId = null;
+    }
+
+    if (session.ended) return renderReport(session);
+    if (!session.wordOfDay) return renderSetup(session);
+    return renderRoster(session);
+  }
+
+  function renderList() {
+    var sorted = sessions.slice().sort(function (a, b) { return a.createdAt &lt; b.createdAt ? 1 : -1; });
+    var html = &#x27;&#x27;;
+    html += &#x27;&lt;div class=&quot;page-head&quot;&gt;&#x27;;
+    html += &#x27;  &lt;div&gt;&lt;h1&gt;Timer&lt;/h1&gt;&lt;p&gt;Standalone — runs fully offline, data saved in this browser only.&lt;/p&gt;&lt;/div&gt;&#x27;;
+    html += &#x27;  &lt;button class=&quot;btn btn-amber&quot; id=&quot;newSessionBtn&quot;&gt;+ New Session&lt;/button&gt;&#x27;;
+    html += &#x27;&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;div class=&quot;wrap&quot;&gt;&#x27;;
+    if (sorted.length === 0) {
+      html += &#x27;&lt;div class=&quot;empty&quot;&gt;No timer sessions yet.&lt;/div&gt;&#x27;;
+    } else {
+      sorted.forEach(function (s) {
+        var dt = new Date(s.createdAt);
+        var label = dt.toLocaleString(&quot;en-US&quot;, { day: &quot;2-digit&quot;, month: &quot;short&quot;, year: &quot;numeric&quot;, hour: &quot;numeric&quot;, minute: &quot;2-digit&quot; });
+        html += &#x27;&lt;div class=&quot;session-card&quot; data-open=&quot;&#x27; + s.id + &#x27;&quot;&gt;&#x27;;
+        html += &#x27;  &lt;div&gt;&lt;div style=&quot;font-weight:600&quot;&gt;Session — &#x27; + esc(label) + &#x27;&lt;/div&gt;&#x27;;
+        html += &#x27;  &lt;div class=&quot;meta&quot;&gt;&#x27; + s.speakers.length + &#x27; speaker&#x27; + (s.speakers.length === 1 ? &#x27;&#x27; : &#x27;s&#x27;) + &#x27; &amp;middot; &lt;span class=&quot;badge &#x27; + (s.ended ? &#x27;badge-ended&#x27; : &#x27;badge-active&#x27;) + &#x27;&quot;&gt;&#x27; + (s.ended ? &#x27;Ended&#x27; : &#x27;Active&#x27;) + &#x27;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&#x27;;
+        html += &#x27;  &lt;button class=&quot;icon-btn&quot; data-delete=&quot;&#x27; + s.id + &#x27;&quot; title=&quot;Delete&quot;&gt;&amp;#10005;&lt;/button&gt;&#x27;;
+        html += &#x27;&lt;/div&gt;&#x27;;
+      });
+    }
+    html += &#x27;&lt;div class=&quot;storage-note&quot;&gt;Data is stored only in this browser (localStorage) — it is not shared with the main Toastmasters Dashboard app.&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;/div&gt;&#x27;;
+    app.innerHTML = html;
+
+    document.getElementById(&quot;newSessionBtn&quot;).onclick = function () {
+      var s = { id: uid(), createdAt: new Date().toISOString(), wordOfDay: &quot;&quot;, idiomOfDay: &quot;&quot;, ended: false, speakers: [] };
+      sessions.push(s);
+      saveSessions();
+      currentId = s.id;
+      render();
+    };
+    app.querySelectorAll(&quot;[data-open]&quot;).forEach(function (el) {
+      el.addEventListener(&quot;click&quot;, function (e) {
+        if (e.target.closest(&quot;[data-delete]&quot;)) return;
+        currentId = el.getAttribute(&quot;data-open&quot;);
+        render();
+      });
+    });
+    app.querySelectorAll(&quot;[data-delete]&quot;).forEach(function (el) {
+      el.addEventListener(&quot;click&quot;, function (e) {
+        e.stopPropagation();
+        var id = el.getAttribute(&quot;data-delete&quot;);
+        sessions = sessions.filter(function (s) { return s.id !== id; });
+        saveSessions();
+        render();
+      });
+    });
+  }
+
+  function topbar(session) {
+    var dt = new Date(session.createdAt);
+    var label = dt.toLocaleString(&quot;en-US&quot;, { day: &quot;2-digit&quot;, month: &quot;short&quot;, year: &quot;numeric&quot;, hour: &quot;numeric&quot;, minute: &quot;2-digit&quot; });
+    return &#x27;&lt;div class=&quot;topbar&quot;&gt;&lt;button class=&quot;back&quot; id=&quot;backBtn&quot;&gt;&amp;larr;&lt;/button&gt;&lt;p class=&quot;title&quot;&gt;Session — &#x27; + esc(label) + &#x27;&lt;/p&gt;&lt;/div&gt;&#x27;;
+  }
+
+  function renderSetup(session) {
+    var html = topbar(session);
+    html += &#x27;&lt;div class=&quot;session-shell&quot;&gt;&#x27;;
+    html += &#x27;&lt;p class=&quot;eyebrow&quot;&gt;Step 1 of 2&lt;/p&gt;&#x27;;
+    html += &#x27;&lt;h2 class=&quot;title&quot;&gt;Set up the session&lt;/h2&gt;&#x27;;
+    html += &#x27;&lt;p class=&quot;lede&quot;&gt;The word and idiom of the day stay locked for every speaker in this session, alternating on screen every &#x27; + WORD_IDIOM_CYCLE_SECONDS + &#x27;s while timing.&lt;/p&gt;&#x27;;
+    html += &#x27;&lt;form id=&quot;setupForm&quot;&gt;&#x27;;
+    html += &#x27;  &lt;label class=&quot;field&quot;&gt;&lt;span class=&quot;lbl&quot;&gt;Word of the Day&lt;/span&gt;&lt;input type=&quot;text&quot; id=&quot;wordInput&quot; placeholder=&quot;e.g. Serendipity&quot; required /&gt;&lt;/label&gt;&#x27;;
+    html += &#x27;  &lt;label class=&quot;field&quot;&gt;&lt;span class=&quot;lbl&quot;&gt;Idiom of the Day&lt;/span&gt;&lt;input type=&quot;text&quot; id=&quot;idiomInput&quot; placeholder=&quot;e.g. Break the ice&quot; required /&gt;&lt;/label&gt;&#x27;;
+    html += &#x27;  &lt;button type=&quot;submit&quot; class=&quot;btn btn-amber&quot;&gt;Begin Session&lt;/button&gt;&#x27;;
+    html += &#x27;&lt;/form&gt;&lt;/div&gt;&#x27;;
+    app.innerHTML = html;
+    document.getElementById(&quot;backBtn&quot;).onclick = function () { currentId = null; render(); };
+    document.getElementById(&quot;setupForm&quot;).onsubmit = function (e) {
+      e.preventDefault();
+      var word = document.getElementById(&quot;wordInput&quot;).value.trim();
+      var idiom = document.getElementById(&quot;idiomInput&quot;).value.trim();
+      if (!word || !idiom) return;
+      updateSession(session.id, { wordOfDay: word, idiomOfDay: idiom });
+    };
+  }
+
+  function renderRoster(session) {
+    var completedCount = session.speakers.filter(function (s) { return s.status; }).length;
+    var html = topbar(session);
+    html += &#x27;&lt;div class=&quot;session-shell&quot;&gt;&#x27;;
+    html += &#x27;&lt;div class=&quot;roster-head&quot;&gt;&lt;h2 class=&quot;title&quot; style=&quot;margin:0&quot;&gt;Session in progress&lt;/h2&gt;&#x27;;
+    html += &#x27;&lt;div style=&quot;display:flex;gap:10px;flex-wrap:wrap&quot;&gt;&#x27;;
+    html += &#x27;  &lt;span class=&quot;pill&quot;&gt;&lt;span class=&quot;k&quot;&gt;Word&lt;/span&gt;&#x27; + esc(session.wordOfDay) + &#x27;&lt;/span&gt;&#x27;;
+    html += &#x27;  &lt;span class=&quot;pill&quot;&gt;&lt;span class=&quot;k&quot;&gt;Idiom&lt;/span&gt;&#x27; + esc(session.idiomOfDay) + &#x27;&lt;/span&gt;&#x27;;
+    html += &#x27;&lt;/div&gt;&lt;/div&gt;&#x27;;
+
+    html += &#x27;&lt;div class=&quot;add-speaker&quot;&gt;&lt;h3&gt;Add Speaker&lt;/h3&gt;&lt;form id=&quot;addSpeakerForm&quot;&gt;&lt;div class=&quot;add-grid&quot;&gt;&#x27;;
+    html += &#x27;  &lt;label class=&quot;field&quot; style=&quot;margin-bottom:0&quot;&gt;&lt;span class=&quot;lbl&quot;&gt;Speaker Name&lt;/span&gt;&lt;input type=&quot;text&quot; id=&quot;spName&quot; placeholder=&quot;e.g. Priya Nair&quot; required /&gt;&lt;/label&gt;&#x27;;
+    html += &#x27;  &lt;label class=&quot;field&quot; style=&quot;margin-bottom:0&quot;&gt;&lt;span class=&quot;lbl&quot;&gt;Speech Type&lt;/span&gt;&lt;select id=&quot;spType&quot;&gt;&#x27;;
+    Object.keys(SPEECH_TYPES).forEach(function (k) { html += &#x27;&lt;option value=&quot;&#x27; + k + &#x27;&quot;&gt;&#x27; + esc(SPEECH_TYPES[k].shortLabel) + &#x27;&lt;/option&gt;&#x27;; });
+    html += &#x27;  &lt;/select&gt;&lt;/label&gt;&#x27;;
+    html += &#x27;  &lt;button type=&quot;submit&quot; class=&quot;btn btn-amber&quot;&gt;Add&lt;/button&gt;&#x27;;
+    html += &#x27;  &lt;div class=&quot;custom-thresholds full&quot; id=&quot;customThresholds&quot; hidden&gt;&#x27;;
+    html += &#x27;    &lt;label class=&quot;field&quot;&gt;&lt;span class=&quot;lbl&quot;&gt;Green (min)&lt;/span&gt;&lt;input type=&quot;number&quot; id=&quot;cGreen&quot; min=&quot;0&quot; step=&quot;any&quot; value=&quot;5&quot; /&gt;&lt;/label&gt;&#x27;;
+    html += &#x27;    &lt;label class=&quot;field&quot;&gt;&lt;span class=&quot;lbl&quot;&gt;Yellow (min)&lt;/span&gt;&lt;input type=&quot;number&quot; id=&quot;cYellow&quot; min=&quot;0&quot; step=&quot;any&quot; value=&quot;6&quot; /&gt;&lt;/label&gt;&#x27;;
+    html += &#x27;    &lt;label class=&quot;field&quot;&gt;&lt;span class=&quot;lbl&quot;&gt;Red (min)&lt;/span&gt;&lt;input type=&quot;number&quot; id=&quot;cRed&quot; min=&quot;0&quot; step=&quot;any&quot; value=&quot;7&quot; /&gt;&lt;/label&gt;&#x27;;
+    html += &#x27;  &lt;/div&gt;&#x27;;
+    html += &#x27;  &lt;label class=&quot;checkline full&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;spShowTime&quot; checked /&gt; Show the time on screen during timing&lt;/label&gt;&#x27;;
+    html += &#x27;&lt;/div&gt;&lt;/form&gt;&lt;/div&gt;&#x27;;
+
+    if (session.speakers.length === 0) {
+      html += &#x27;&lt;div class=&quot;empty-roster&quot;&gt;No speakers added yet. Add one above to begin timing.&lt;/div&gt;&#x27;;
+    } else {
+      html += &#x27;&lt;div class=&quot;speaker-grid&quot;&gt;&#x27;;
+      session.speakers.forEach(function (sp) {
+        html += &#x27;&lt;div class=&quot;speaker-card&quot;&gt;&lt;p class=&quot;nm&quot;&gt;&#x27; + esc(sp.speakerName) + &#x27;&lt;/p&gt;&lt;p class=&quot;ty&quot;&gt;&#x27; + esc(sp.speechTypeLabel) + &#x27;&lt;/p&gt;&#x27;;
+        html += &#x27;&lt;div class=&quot;row-between&quot;&gt;&#x27;;
+        if (sp.status) {
+          var meta = STATUS_META[sp.status];
+          var cls = meta.tone === &quot;good&quot; ? &quot;status-qualified&quot; : meta.tone === &quot;bad&quot; ? &quot;status-bad&quot; : &quot;status-warn&quot;;
+          html += &#x27;&lt;span class=&quot;mono&quot; style=&quot;font-size:14px&quot;&gt;&#x27; + formatTime(sp.elapsedSeconds || 0) + &#x27;&lt;/span&gt;&#x27;;
+          html += &#x27;&lt;span class=&quot;status-pill &#x27; + cls + &#x27;&quot;&gt;&#x27; + esc(meta.label) + &#x27;&lt;/span&gt;&#x27;;
+        } else {
+          html += &#x27;&lt;span class=&quot;status-pill&quot; style=&quot;background:var(--amber-badge);color:#fcd34d&quot;&gt;Not timed&lt;/span&gt;&#x27;;
+          html += &#x27;&lt;button class=&quot;btn btn-amber btn-sm&quot; data-start=&quot;&#x27; + sp.id + &#x27;&quot;&gt;Start Timing&lt;/button&gt;&#x27;;
+        }
+        html += &#x27;&lt;/div&gt;&lt;/div&gt;&#x27;;
+      });
+      html += &#x27;&lt;/div&gt;&#x27;;
+    }
+
+    html += &#x27;&lt;div class=&quot;finish-row&quot;&gt;&lt;button class=&quot;btn btn-outline&quot; id=&quot;finishBtn&quot; &#x27; + (completedCount === 0 ? &quot;disabled&quot; : &quot;&quot;) + &#x27;&gt;Finish Session &amp;amp; View Report (&#x27; + completedCount + &#x27; timed)&lt;/button&gt;&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;/div&gt;&#x27;;
+    app.innerHTML = html;
+
+    document.getElementById(&quot;backBtn&quot;).onclick = function () { currentId = null; render(); };
+
+    var typeSelect = document.getElementById(&quot;spType&quot;);
+    typeSelect.onchange = function () {
+      document.getElementById(&quot;customThresholds&quot;).hidden = typeSelect.value !== &quot;custom&quot;;
+    };
+
+    document.getElementById(&quot;addSpeakerForm&quot;).onsubmit = function (e) {
+      e.preventDefault();
+      var name = document.getElementById(&quot;spName&quot;).value.trim();
+      if (!name) return;
+      var typeKey = typeSelect.value;
+      var type = SPEECH_TYPES[typeKey];
+      var thresholds;
+      if (typeKey === &quot;custom&quot;) {
+        thresholds = {
+          green: Math.round(Number(document.getElementById(&quot;cGreen&quot;).value) * 60),
+          yellow: Math.round(Number(document.getElementById(&quot;cYellow&quot;).value) * 60),
+          red: Math.round(Number(document.getElementById(&quot;cRed&quot;).value) * 60)
+        };
+      } else {
+        thresholds = { green: type.green, yellow: type.yellow, red: type.red };
+      }
+      var speaker = {
+        id: uid(), speakerName: name, speechTypeKey: typeKey, speechTypeLabel: type.shortLabel,
+        hasGraceBefore: type.hasGraceBefore, hasGraceAfter: type.hasGraceAfter,
+        green: thresholds.green, yellow: thresholds.yellow, red: thresholds.red,
+        showTime: document.getElementById(&quot;spShowTime&quot;).checked
+      };
+      session.speakers.push(speaker);
+      updateSession(session.id, { speakers: session.speakers });
+    };
+
+    app.querySelectorAll(&quot;[data-start]&quot;).forEach(function (el) {
+      el.onclick = function () { timingSpeakerId = el.getAttribute(&quot;data-start&quot;); render(); };
+    });
+    document.getElementById(&quot;finishBtn&quot;).onclick = function () {
+      if (completedCount === 0) return;
+      updateSession(session.id, { ended: true });
+    };
+  }
+
+  function renderFullscreenTimer(session, speaker) {
+    var elapsed = 0;
+    var wordCount = 0, idiomCount = 0;
+
+    app.innerHTML = &#x27;&lt;div class=&quot;fullscreen&quot; id=&quot;fsRoot&quot; style=&quot;background:&#x27; + PHASE_BG.pre + &#x27;&quot;&gt;&#x27; +
+      &#x27;&lt;div class=&quot;fs-top&quot;&gt;&lt;div class=&quot;who&quot;&gt;&lt;strong&gt;&#x27; + esc(speaker.speakerName) + &#x27;&lt;/strong&gt;&lt;span style=&quot;margin-left:8px;opacity:.75&quot;&gt;&#x27; + esc(speaker.speechTypeLabel) + &#x27;&lt;/span&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;badge-phase&quot; id=&quot;fsBadge&quot;&gt;STANDBY&lt;/div&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;pop-layer&quot; id=&quot;popLayer&quot;&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;fs-center&quot;&gt;&#x27; +
+      &#x27;  &lt;div&gt;&lt;div class=&quot;fs-cyclabel&quot; id=&quot;fsCycLabel&quot;&gt;Word of the Day&lt;/div&gt;&lt;div class=&quot;fs-cycval&quot; id=&quot;fsCycVal&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#x27; +
+      &#x27;  &lt;div class=&quot;fs-clock mono&quot; id=&quot;fsClock&quot; &#x27; + (speaker.showTime ? &quot;&quot; : &#x27;hidden&#x27;) + &#x27;&gt;0:00&lt;/div&gt;&#x27; +
+      &#x27;  &lt;div class=&quot;fs-counters&quot;&gt;&#x27; +
+      &#x27;    &lt;button id=&quot;wordBtn&quot;&gt;&amp;#128216; Word of the Day &lt;span class=&quot;mono&quot; id=&quot;wordCount&quot;&gt;0&lt;/span&gt;&lt;/button&gt;&#x27; +
+      &#x27;    &lt;button id=&quot;idiomBtn&quot;&gt;&amp;#128161; Idiom of the Day &lt;span class=&quot;mono&quot; id=&quot;idiomCount&quot;&gt;0&lt;/span&gt;&lt;/button&gt;&#x27; +
+      &#x27;  &lt;/div&gt;&#x27; +
+      &#x27;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;fs-hint mono&quot;&gt;Press Esc or use End &amp;amp; Save to stop&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;fs-end&quot;&gt;&lt;button id=&quot;endSaveBtn&quot;&gt;End &amp;amp; Save&lt;/button&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;/div&gt;&#x27;;
+
+    var root = document.getElementById(&quot;fsRoot&quot;);
+    var badgeEl = document.getElementById(&quot;fsBadge&quot;);
+    var cycLabelEl = document.getElementById(&quot;fsCycLabel&quot;);
+    var cycValEl = document.getElementById(&quot;fsCycVal&quot;);
+    var clockEl = document.getElementById(&quot;fsClock&quot;);
+    var wordCountEl = document.getElementById(&quot;wordCount&quot;);
+    var idiomCountEl = document.getElementById(&quot;idiomCount&quot;);
+    var popLayer = document.getElementById(&quot;popLayer&quot;);
+    var lastCycleIndex = -1;
+
+    function tick() {
+      var phase = getPhase(elapsed, speaker, speaker);
+      root.style.background = PHASE_BG[phase];
+      root.style.color = phase === &quot;yellow&quot; ? &quot;#241a02&quot; : &quot;#fdfaf4&quot;;
+      badgeEl.textContent = PHASE_BADGE[phase];
+
+      var cycleIndex = Math.floor(elapsed / WORD_IDIOM_CYCLE_SECONDS);
+      if (cycleIndex !== lastCycleIndex) {
+        lastCycleIndex = cycleIndex;
+        var showingWord = cycleIndex % 2 === 0;
+        cycLabelEl.textContent = showingWord ? &quot;Word of the Day&quot; : &quot;Idiom of the Day&quot;;
+        cycValEl.textContent = showingWord ? session.wordOfDay : session.idiomOfDay;
+      }
+      if (speaker.showTime) clockEl.textContent = formatTime(elapsed);
+    }
+    tick();
+
+    tickHandle = setInterval(function () {
+      elapsed += 1;
+      tick();
+    }, 1000);
+
+    function pop(emoji) {
+      popLayer.innerHTML = &#x27;&lt;span class=&quot;pop-emoji&quot;&gt;&#x27; + emoji + &#x27;&lt;/span&gt;&#x27;;
+      if (popTimeout) clearTimeout(popTimeout);
+      popTimeout = setTimeout(function () { popLayer.innerHTML = &quot;&quot;; }, 2000);
+    }
+
+    document.getElementById(&quot;wordBtn&quot;).onclick = function () {
+      wordCount++; wordCountEl.textContent = wordCount; pop(&quot;\u{1F4D8}&quot;);
+    };
+    document.getElementById(&quot;idiomBtn&quot;).onclick = function () {
+      idiomCount++; idiomCountEl.textContent = idiomCount; pop(&quot;\u{1F4A1}&quot;);
+    };
+
+    function finish() {
+      var status = getStatus(elapsed, speaker, speaker);
+      speaker.elapsedSeconds = elapsed;
+      speaker.status = status;
+      timingSpeakerId = null;
+      updateSession(session.id, { speakers: session.speakers });
+    }
+
+    document.getElementById(&quot;endSaveBtn&quot;).onclick = finish;
+
+    function keyHandler(e) {
+      if (e.key === &quot;Escape&quot;) finish();
+    }
+    document.addEventListener(&quot;keydown&quot;, keyHandler);
+    render._cleanupKey = function () { document.removeEventListener(&quot;keydown&quot;, keyHandler); };
+  }
+
+  function renderReport(session) {
+    var timed = session.speakers.filter(function (s) { return s.status; });
+    var maxSeconds = Math.max.apply(null, timed.map(function (s) { return s.elapsedSeconds || 0; }).concat([60]));
+
+    var html = topbar(session);
+    html += &#x27;&lt;div class=&quot;session-shell&quot;&gt;&#x27;;
+    html += &#x27;&lt;p class=&quot;eyebrow&quot;&gt;Session Complete&lt;/p&gt;&lt;h2 class=&quot;title&quot;&gt;Final Report&lt;/h2&gt;&#x27;;
+    html += &#x27;&lt;p class=&quot;lede&quot;&gt;Word: &amp;ldquo;&#x27; + esc(session.wordOfDay) + &#x27;&amp;rdquo; &amp;middot; Idiom: &amp;ldquo;&#x27; + esc(session.idiomOfDay) + &#x27;&amp;rdquo;&lt;/p&gt;&#x27;;
+
+    html += &#x27;&lt;div class=&quot;report-table-wrap&quot;&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Speaker&lt;/th&gt;&lt;th&gt;Speech Type&lt;/th&gt;&lt;th&gt;Time&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&#x27;;
+    timed.forEach(function (sp) {
+      var meta = STATUS_META[sp.status];
+      var cls = meta.tone === &quot;good&quot; ? &quot;status-qualified&quot; : meta.tone === &quot;bad&quot; ? &quot;status-bad&quot; : &quot;status-warn&quot;;
+      html += &#x27;&lt;tr&gt;&lt;td&gt;&#x27; + esc(sp.speakerName) + &#x27;&lt;/td&gt;&lt;td style=&quot;color:var(--muted)&quot;&gt;&#x27; + esc(sp.speechTypeLabel) + &#x27;&lt;/td&gt;&#x27;;
+      html += &#x27;&lt;td class=&quot;mono&quot;&gt;&#x27; + formatTime(sp.elapsedSeconds || 0) + &#x27;&lt;/td&gt;&#x27;;
+      html += &#x27;&lt;td&gt;&lt;span class=&quot;status-pill &#x27; + cls + &#x27;&quot;&gt;&#x27; + esc(meta.label) + &#x27;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&#x27;;
+    });
+    html += &#x27;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&#x27;;
+
+    html += &#x27;&lt;p class=&quot;compare-label&quot; style=&quot;font-weight:600&quot;&gt;Time Comparison&lt;/p&gt;&#x27;;
+    timed.forEach(function (sp) {
+      var pct = Math.min(100, ((sp.elapsedSeconds || 0) / maxSeconds) * 100);
+      html += &#x27;&lt;div class=&quot;compare-row&quot;&gt;&lt;div class=&quot;compare-name&quot;&gt;&#x27; + esc(sp.speakerName) + &#x27;&lt;/div&gt;&#x27;;
+      html += &#x27;&lt;div class=&quot;compare-track&quot;&gt;&lt;div class=&quot;compare-fill&quot; style=&quot;width:&#x27; + pct + &#x27;%;background:&#x27; + BAR_COLOR[sp.status] + &#x27;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#x27;;
+      html += &#x27;&lt;div class=&quot;compare-time mono&quot;&gt;&#x27; + formatTime(sp.elapsedSeconds || 0) + &#x27;&lt;/div&gt;&lt;/div&gt;&#x27;;
+    });
+
+    html += &#x27;&lt;div class=&quot;legend-row&quot;&gt;&#x27;;
+    html += &#x27;&lt;span&gt;&lt;span class=&quot;sw&quot; style=&quot;background:#1c8a4c&quot;&gt;&lt;/span&gt;Qualified&lt;/span&gt;&#x27;;
+    html += &#x27;&lt;span&gt;&lt;span class=&quot;sw&quot; style=&quot;background:#d19a1f&quot;&gt;&lt;/span&gt;Under / Over time&lt;/span&gt;&#x27;;
+    html += &#x27;&lt;span&gt;&lt;span class=&quot;sw&quot; style=&quot;background:#c23a2c&quot;&gt;&lt;/span&gt;Disqualified&lt;/span&gt;&#x27;;
+    html += &#x27;&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;/div&gt;&#x27;;
+    app.innerHTML = html;
+    document.getElementById(&quot;backBtn&quot;).onclick = function () { currentId = null; render(); };
+  }
+
+  render();
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe></section>
+ <section class="tool-section" id="ah-counter"><div class="tool-head"><div><h2>👂 Ah-Counter</h2><p>Filler, crutch word, pause and repetition tracker.</p></div><div class="tool-actions"><button class="tool-btn" onclick="TMHub.top()">↑ Home</button><button class="tool-btn" onclick="TMHub.focus('ah-counter')">⛶ Expand</button></div></div><iframe id="frame-ah" title="Ah-Counter" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot; /&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+&lt;title&gt;Ah-Counter — Standalone&lt;/title&gt;
+&lt;style&gt;
+  :root {
+    --bg: #f8fafc; --card: #ffffff; --border: #e2e8f0; --text: #0f172a; --muted: #64748b;
+    --slate900: #0f172a; --slate800: #1e293b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  [hidden] { display: none !important; }
+
+  .page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 24px; border-bottom: 1px solid var(--border); background: #fff; }
+  .page-head h1 { margin: 0 0 4px; font-size: 20px; }
+  .page-head p { margin: 0; color: var(--muted); font-size: 13px; }
+  .wrap { max-width: 1600px; margin: 0 auto; padding: 24px; }
+
+  .btn { display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; border: 1px solid transparent; padding: 9px 15px; min-height: 38px; }
+  .btn-dark { background: var(--slate900); color: #fff; }
+  .btn-dark:hover { background: #1e293b; }
+  .btn-outline { background: #fff; border-color: #cbd5e1; color: var(--text); }
+  .btn-outline:hover { background: #f8fafc; }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+
+  .session-card { display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid var(--border); background: var(--card); border-radius: 12px; padding: 16px; margin-bottom: 10px; cursor: pointer; }
+  .session-card:hover { border-color: #cbd5e1; }
+  .session-card .meta { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; }
+  .badge-active { background: #d1fae5; color: #047857; }
+  .badge-ended { background: #f1f5f9; color: #475569; }
+  .icon-btn { background: none; border: none; color: #94a3b8; cursor: pointer; padding: 6px; border-radius: 6px; }
+  .icon-btn:hover { background: #f1f5f9; color: #e11d48; }
+  .empty { text-align: center; color: var(--muted); padding: 40px; font-size: 13px; }
+
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); background: #fff; padding: 16px 24px; }
+  .topbar .left { display: flex; align-items: center; gap: 12px; }
+  .topbar button.back { background: none; border: none; color: #64748b; cursor: pointer; padding: 6px; border-radius: 6px; }
+  .topbar button.back:hover { background: #f1f5f9; }
+  .topbar .title { font-size: 14px; font-weight: 600; margin: 0; }
+  .topbar .actions { display: flex; gap: 8px; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 14px; }
+  thead tr.main { background: var(--slate900); color: #e2e8f0; font-size: 12px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; }
+  thead tr.sub { background: var(--slate800); color: #cbd5e1; font-size: 11px; font-weight: 500; letter-spacing: .03em; text-transform: uppercase; }
+  th, td { padding: 10px 6px; text-align: center; overflow: hidden; }
+  th.sp, td.sp { text-align: left; position: sticky; left: 0; background: #fff; z-index: 2; padding-left: 14px; }
+  thead th.sp { background: var(--slate900); z-index: 3; }
+  thead tr.sub th { white-space: normal; line-height: 1.3; word-break: break-word; }
+  tbody tr { border-top: 1px solid #f1f5f9; }
+  tbody tr:hover td.sp { background: #f8fafc; }
+  .bl { border-left: 1px solid #334155; }
+  .tone-1 { background: #d1fae5; color: #065f46; }
+  .tone-2 { background: #fef3c7; color: #92400e; }
+  .tone-3 { background: #fee2e2; color: #991b1b; }
+  input.name-input, input.remarks-input { width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 7px 10px; font-size: 14px; }
+  .counter { display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .counter button { width: 24px; height: 24px; flex: none; border: 1px solid #cbd5e1; border-radius: 5px; background: #fff; font-size: 14px; cursor: pointer; line-height: 1; color: #64748b; padding: 0; }
+  .counter button:hover { background: #f1f5f9; }
+  .counter span { width: 20px; text-align: center; font-size: 14px; font-weight: 600; }
+  .rm-btn { background: none; border: none; color: #94a3b8; cursor: pointer; }
+  .rm-btn:hover { color: #e11d48; }
+
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+  @media (max-width: 860px) { .charts { grid-template-columns: 1fr; } }
+  @media (max-width: 1000px) {
+    table { table-layout: auto; }
+    col { width: auto !important; }
+    th, td, thead tr.sub th { white-space: nowrap !important; }
+    th.sp, td.sp { min-width: 140px; }
+  }
+  .chart-card { padding: 16px; }
+  .chart-card h3 { margin: 0 0 4px; font-size: 14px; font-weight: 600; }
+  .chart-card .sub { margin: 0 0 8px; font-size: 12px; color: var(--muted); }
+  canvas { width: 100%; height: 280px; display: block; }
+  .legend-row { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--muted); }
+  .legend-row .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+  .storage-note { padding: 16px 24px; font-size: 12px; color: var(--muted); text-align: center; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+(function () {
+  &quot;use strict&quot;;
+
+  var CATEGORY_COLUMNS = [
+    { key: &quot;ahh&quot;, label: &quot;Ahh&quot;, group: &quot;Filler Sounds&quot; },
+    { key: &quot;err&quot;, label: &quot;Err&quot;, group: &quot;Filler Sounds&quot; },
+    { key: &quot;umm&quot;, label: &quot;Umm&quot;, group: &quot;Filler Sounds&quot; },
+    { key: &quot;and&quot;, label: &quot;And&quot;, group: &quot;Crutch Words&quot; },
+    { key: &quot;well&quot;, label: &quot;Well&quot;, group: &quot;Crutch Words&quot; },
+    { key: &quot;but&quot;, label: &quot;But&quot;, group: &quot;Crutch Words&quot; },
+    { key: &quot;so&quot;, label: &quot;So&quot;, group: &quot;Crutch Words&quot; },
+    { key: &quot;youKnow&quot;, label: &quot;You Know&quot;, group: &quot;Crutch Words&quot; },
+    { key: &quot;longPause&quot;, label: &quot;Long Pause&quot;, group: &quot;Pauses&quot; },
+    { key: &quot;shortPause&quot;, label: &quot;Short Pause&quot;, group: &quot;Pauses&quot; },
+    { key: &quot;repetitionI&quot;, label: &quot;I&quot;, group: &quot;Repetitions&quot; },
+    { key: &quot;repetitionThisMeans&quot;, label: &quot;This Means&quot;, group: &quot;Repetitions&quot; }
+  ];
+
+  var FAMILY_COLORS = { &quot;Filler Sounds&quot;: &quot;#b71c1c&quot;, &quot;Crutch Words&quot;: &quot;#1b5e20&quot;, &quot;Pauses&quot;: &quot;#0d47a1&quot;, &quot;Repetitions&quot;: &quot;#311b92&quot; };
+  var METRIC_COLORS = {
+    ahh: &quot;#d32f2f&quot;, err: &quot;#f44336&quot;, umm: &quot;#e57373&quot;,
+    and: &quot;#2e7d32&quot;, well: &quot;#388e3c&quot;, but: &quot;#43a047&quot;, so: &quot;#4caf50&quot;, youKnow: &quot;#66bb6a&quot;,
+    longPause: &quot;#1976d2&quot;, shortPause: &quot;#42a5f5&quot;,
+    repetitionI: &quot;#512da8&quot;, repetitionThisMeans: &quot;#7e57c2&quot;
+  };
+
+  function uid() { return &quot;id-&quot; + Date.now().toString(36) + &quot;-&quot; + Math.random().toString(36).slice(2, 9); }
+  function esc(s) { return String(s == null ? &quot;&quot; : s).replace(/[&amp;&lt;&gt;&quot;&#x27;]/g, function (c) { return { &quot;&amp;&quot;: &quot;&amp;amp;&quot;, &quot;&lt;&quot;: &quot;&amp;lt;&quot;, &quot;&gt;&quot;: &quot;&amp;gt;&quot;, &#x27;&quot;&#x27;: &quot;&amp;quot;&quot;, &quot;&#x27;&quot;: &quot;&amp;#39;&quot; }[c]; }); }
+  function todayISO() { var d = new Date(); return d.getFullYear() + &quot;-&quot; + String(d.getMonth() + 1).padStart(2, &quot;0&quot;) + &quot;-&quot; + String(d.getDate()).padStart(2, &quot;0&quot;); }
+
+  function blankEntry() {
+    var e = { id: uid(), speakerName: &quot;&quot;, remarks: &quot;&quot; };
+    CATEGORY_COLUMNS.forEach(function (c) { e[c.key] = 0; });
+    return e;
+  }
+  function total(e) { return CATEGORY_COLUMNS.reduce(function (sum, c) { return sum + (Number(e[c.key]) || 0); }, 0); }
+  function cellTone(v) { if (v &gt;= 10) return &quot;tone-3&quot;; if (v &gt;= 6) return &quot;tone-2&quot;; if (v &gt;= 1) return &quot;tone-1&quot;; return &quot;&quot;; }
+
+  var STORAGE_KEY = &quot;tm_standalone_ahcounter_sessions_v1&quot;;
+  function loadSessions() { try { var raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : []; } catch (e) { return []; } }
+  function saveSessions() { localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions)); }
+
+  var sessions = loadSessions();
+  var currentId = null;
+  var app = document.getElementById(&quot;app&quot;);
+
+  function findSession(id) { for (var i = 0; i &lt; sessions.length; i++) if (sessions[i].id === id) return sessions[i]; return null; }
+  function updateSession(id, patch) { var s = findSession(id); if (!s) return; Object.assign(s, patch); saveSessions(); render(); }
+
+  function render() {
+    if (!currentId) return renderList();
+    var session = findSession(currentId);
+    if (!session) { currentId = null; return renderList(); }
+    return renderSession(session);
+  }
+
+  function renderList() {
+    var sorted = sessions.slice().sort(function (a, b) { return a.date &lt; b.date ? 1 : -1; });
+    var html = &#x27;&lt;div class=&quot;page-head&quot;&gt;&lt;div&gt;&lt;h1&gt;Ah-Counter&lt;/h1&gt;&lt;p&gt;Standalone — runs fully offline, data saved in this browser only.&lt;/p&gt;&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;button class=&quot;btn btn-dark&quot; id=&quot;newBtn&quot;&gt;+ New Session&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;wrap&quot;&gt;&#x27;;
+    if (sorted.length === 0) html += &#x27;&lt;div class=&quot;empty&quot;&gt;No Ah-Counter sessions yet.&lt;/div&gt;&#x27;;
+    else sorted.forEach(function (s) {
+      html += &#x27;&lt;div class=&quot;session-card&quot; data-open=&quot;&#x27; + s.id + &#x27;&quot;&gt;&lt;div&gt;&lt;div style=&quot;font-weight:600&quot;&gt;Session — &#x27; + esc(s.date) + &#x27;&lt;/div&gt;&#x27;;
+      html += &#x27;&lt;div class=&quot;meta&quot;&gt;&#x27; + s.entries.length + &#x27; speaker&#x27; + (s.entries.length === 1 ? &#x27;&#x27; : &#x27;s&#x27;) + &#x27; &amp;middot; &lt;span class=&quot;badge &#x27; + (s.ended ? &#x27;badge-ended&#x27; : &#x27;badge-active&#x27;) + &#x27;&quot;&gt;&#x27; + (s.ended ? &#x27;Ended&#x27; : &#x27;Active&#x27;) + &#x27;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&#x27;;
+      html += &#x27;&lt;button class=&quot;icon-btn&quot; data-delete=&quot;&#x27; + s.id + &#x27;&quot;&gt;&amp;#10005;&lt;/button&gt;&lt;/div&gt;&#x27;;
+    });
+    html += &#x27;&lt;div class=&quot;storage-note&quot;&gt;Data is stored only in this browser (localStorage) — it is not shared with the main Toastmasters Dashboard app.&lt;/div&gt;&lt;/div&gt;&#x27;;
+    app.innerHTML = html;
+
+    document.getElementById(&quot;newBtn&quot;).onclick = function () {
+      var s = { id: uid(), date: todayISO(), entries: [], ended: false };
+      sessions.push(s); saveSessions(); currentId = s.id; render();
+    };
+    app.querySelectorAll(&quot;[data-open]&quot;).forEach(function (el) {
+      el.onclick = function (e) { if (e.target.closest(&quot;[data-delete]&quot;)) return; currentId = el.getAttribute(&quot;data-open&quot;); render(); };
+    });
+    app.querySelectorAll(&quot;[data-delete]&quot;).forEach(function (el) {
+      el.onclick = function (e) { e.stopPropagation(); var id = el.getAttribute(&quot;data-delete&quot;); sessions = sessions.filter(function (s) { return s.id !== id; }); saveSessions(); render(); };
+    });
+  }
+
+  function exportCsv(session) {
+    var headers = [&quot;Speaker&quot;].concat(CATEGORY_COLUMNS.map(function (c) { return c.label; })).concat([&quot;Total&quot;, &quot;Remarks&quot;]);
+    var rows = [headers];
+    session.entries.forEach(function (e) {
+      var row = [e.speakerName || &quot;&quot;].concat(CATEGORY_COLUMNS.map(function (c) { return String(e[c.key] || 0); })).concat([String(total(e)), e.remarks || &quot;&quot;]);
+      rows.push(row);
+    });
+    var csv = rows.map(function (r) {
+      return r.map(function (cell) {
+        var s = String(cell).replace(/&quot;/g, &#x27;&quot;&quot;&#x27;);
+        return /[&quot;,\n]/.test(s) ? &#x27;&quot;&#x27; + s + &#x27;&quot;&#x27; : s;
+      }).join(&quot;,&quot;);
+    }).join(&quot;\n&quot;);
+    var blob = new Blob([csv], { type: &quot;text/csv;charset=utf-8;&quot; });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement(&quot;a&quot;);
+    a.href = url; a.download = &quot;ah-counter-&quot; + session.date + &quot;.csv&quot;;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function renderSession(session) {
+    var html = &#x27;&lt;div class=&quot;topbar&quot;&gt;&lt;div class=&quot;left&quot;&gt;&lt;button class=&quot;back&quot; id=&quot;backBtn&quot;&gt;&amp;larr;&lt;/button&gt;&#x27;;
+    html += &#x27;&lt;div&gt;&lt;p class=&quot;title&quot;&gt;Session — &#x27; + esc(session.date) + &#x27;&lt;/p&gt;&#x27;;
+    html += &#x27;&lt;span class=&quot;badge &#x27; + (session.ended ? &#x27;badge-ended&#x27; : &#x27;badge-active&#x27;) + &#x27;&quot;&gt;&#x27; + (session.ended ? &#x27;Ended&#x27; : &#x27;Active&#x27;) + &#x27;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;div class=&quot;actions&quot;&gt;&lt;button class=&quot;btn btn-outline&quot; id=&quot;exportBtn&quot;&gt;&amp;#8681; Export CSV&lt;/button&gt;&#x27;;
+    if (!session.ended) {
+      html += &#x27;&lt;button class=&quot;btn btn-outline&quot; id=&quot;addSpeakerBtn&quot;&gt;+ Add Speaker&lt;/button&gt;&#x27;;
+      html += &#x27;&lt;button class=&quot;btn btn-dark&quot; id=&quot;endBtn&quot;&gt;End Session&lt;/button&gt;&#x27;;
+    }
+    html += &#x27;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;wrap&quot;&gt;&#x27;;
+
+    html += &#x27;&lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;table-scroll&quot;&gt;&lt;table&gt;&lt;colgroup&gt;&#x27;;
+    html += &#x27;&lt;col style=&quot;width:12%&quot;&gt;&#x27;;
+    for (var ci = 0; ci &lt; CATEGORY_COLUMNS.length; ci++) html += &#x27;&lt;col style=&quot;width:5%&quot;&gt;&#x27;;
+    html += &#x27;&lt;col style=&quot;width:4%&quot;&gt;&#x27;;
+    html += session.ended ? &#x27;&lt;col style=&quot;width:24%&quot;&gt;&#x27; : &#x27;&lt;col style=&quot;width:18%&quot;&gt;&lt;col style=&quot;width:6%&quot;&gt;&#x27;;
+    html += &#x27;&lt;/colgroup&gt;&lt;thead&gt;&#x27;;
+    html += &#x27;&lt;tr class=&quot;main&quot;&gt;&lt;th class=&quot;sp&quot; rowspan=&quot;2&quot;&gt;Speaker&lt;/th&gt;&#x27;;
+    html += &#x27;&lt;th colspan=&quot;3&quot; class=&quot;bl&quot;&gt;Filler Sounds&lt;/th&gt;&lt;th colspan=&quot;5&quot; class=&quot;bl&quot;&gt;Crutch Words&lt;/th&gt;&lt;th colspan=&quot;2&quot; class=&quot;bl&quot;&gt;Pauses&lt;/th&gt;&lt;th colspan=&quot;2&quot; class=&quot;bl&quot;&gt;Repetitions&lt;/th&gt;&#x27;;
+    html += &#x27;&lt;th class=&quot;bl&quot; rowspan=&quot;2&quot;&gt;Total&lt;/th&gt;&lt;th rowspan=&quot;2&quot;&gt;Remarks&lt;/th&gt;&#x27;;
+    if (!session.ended) html += &#x27;&lt;th rowspan=&quot;2&quot;&gt;&lt;/th&gt;&#x27;;
+    html += &#x27;&lt;/tr&gt;&lt;tr class=&quot;sub&quot;&gt;&#x27;;
+    CATEGORY_COLUMNS.forEach(function (c, i) {
+      var isGroupStart = i === 0 || i === 3 || i === 8 || i === 10;
+      html += &#x27;&lt;th class=&quot;&#x27; + (isGroupStart ? &#x27;bl&#x27; : &#x27;&#x27;) + &#x27;&quot;&gt;&#x27; + esc(c.label) + &#x27;&lt;/th&gt;&#x27;;
+    });
+    html += &#x27;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&#x27;;
+
+    if (session.entries.length === 0) {
+      html += &#x27;&lt;tr&gt;&lt;td colspan=&quot;16&quot; style=&quot;padding:32px;text-align:center;color:#94a3b8&quot;&gt;No speakers added yet.&lt;/td&gt;&lt;/tr&gt;&#x27;;
+    } else {
+      session.entries.forEach(function (e) {
+        html += &#x27;&lt;tr&gt;&lt;td class=&quot;sp&quot;&gt;&#x27;;
+        if (session.ended) html += &#x27;&lt;strong&gt;&#x27; + esc(e.speakerName || &quot;—&quot;) + &#x27;&lt;/strong&gt;&#x27;;
+        else html += &#x27;&lt;input class=&quot;name-input&quot; data-field=&quot;speakerName&quot; data-entry=&quot;&#x27; + e.id + &#x27;&quot; value=&quot;&#x27; + esc(e.speakerName) + &#x27;&quot; placeholder=&quot;Speaker name&quot; /&gt;&#x27;;
+        html += &#x27;&lt;/td&gt;&#x27;;
+        CATEGORY_COLUMNS.forEach(function (c) {
+          var v = Number(e[c.key]) || 0;
+          html += &#x27;&lt;td class=&quot;&#x27; + cellTone(v) + &#x27;&quot;&gt;&#x27;;
+          if (session.ended) html += &#x27;&lt;span class=&quot;mono&quot;&gt;&#x27; + v + &#x27;&lt;/span&gt;&#x27;;
+          else html += &#x27;&lt;div class=&quot;counter&quot;&gt;&lt;button data-dec=&quot;&#x27; + e.id + &#x27;&quot; data-key=&quot;&#x27; + c.key + &#x27;&quot;&gt;-&lt;/button&gt;&lt;span&gt;&#x27; + v + &#x27;&lt;/span&gt;&lt;button data-inc=&quot;&#x27; + e.id + &#x27;&quot; data-key=&quot;&#x27; + c.key + &#x27;&quot;&gt;+&lt;/button&gt;&lt;/div&gt;&#x27;;
+          html += &#x27;&lt;/td&gt;&#x27;;
+        });
+        html += &#x27;&lt;td style=&quot;font-weight:700&quot;&gt;&#x27; + total(e) + &#x27;&lt;/td&gt;&#x27;;
+        html += &#x27;&lt;td&gt;&#x27;;
+        if (session.ended) html += &#x27;&lt;span style=&quot;color:#64748b&quot;&gt;&#x27; + esc(e.remarks || &quot;—&quot;) + &#x27;&lt;/span&gt;&#x27;;
+        else html += &#x27;&lt;input class=&quot;remarks-input&quot; data-field=&quot;remarks&quot; data-entry=&quot;&#x27; + e.id + &#x27;&quot; value=&quot;&#x27; + esc(e.remarks || &quot;&quot;) + &#x27;&quot; placeholder=&quot;Notes…&quot; /&gt;&#x27;;
+        html += &#x27;&lt;/td&gt;&#x27;;
+        if (!session.ended) html += &#x27;&lt;td&gt;&lt;button class=&quot;rm-btn&quot; data-remove=&quot;&#x27; + e.id + &#x27;&quot;&gt;&amp;#10005;&lt;/button&gt;&lt;/td&gt;&#x27;;
+        html += &#x27;&lt;/tr&gt;&#x27;;
+      });
+    }
+    html += &#x27;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/div&gt;&#x27;;
+
+    if (session.ended &amp;&amp; session.entries.length &gt; 0) {
+      html += &#x27;&lt;div class=&quot;charts&quot;&gt;&#x27;;
+      html += &#x27;&lt;div class=&quot;card chart-card&quot;&gt;&lt;h3&gt;Count per Speaker&lt;/h3&gt;&lt;p class=&quot;sub&quot;&gt;Each bar is split into every filler/crutch/pause/repetition metric.&lt;/p&gt;&lt;canvas id=&quot;barCanvas&quot;&gt;&lt;/canvas&gt;&lt;div class=&quot;legend-row&quot; id=&quot;legendBar&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#x27;;
+      html += &#x27;&lt;div class=&quot;card chart-card&quot;&gt;&lt;h3&gt;Distribution by Category&lt;/h3&gt;&lt;p class=&quot;sub&quot;&gt;Inner ring: category totals. Outer ring: individual metrics.&lt;/p&gt;&lt;canvas id=&quot;pieCanvas&quot;&gt;&lt;/canvas&gt;&lt;div class=&quot;legend-row&quot; id=&quot;legendPie&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#x27;;
+      html += &#x27;&lt;/div&gt;&#x27;;
+    }
+    html += &#x27;&lt;/div&gt;&#x27;;
+    app.innerHTML = html;
+
+    document.getElementById(&quot;backBtn&quot;).onclick = function () { currentId = null; render(); };
+    document.getElementById(&quot;exportBtn&quot;).onclick = function () { exportCsv(session); };
+    var addBtn = document.getElementById(&quot;addSpeakerBtn&quot;);
+    if (addBtn) addBtn.onclick = function () { session.entries.push(blankEntry()); updateSession(session.id, { entries: session.entries }); };
+    var endBtn = document.getElementById(&quot;endBtn&quot;);
+    if (endBtn) endBtn.onclick = function () { updateSession(session.id, { ended: true }); };
+
+    app.querySelectorAll(&quot;[data-inc]&quot;).forEach(function (el) {
+      el.onclick = function () {
+        var entry = session.entries.find(function (e) { return e.id === el.getAttribute(&quot;data-inc&quot;); });
+        entry[el.getAttribute(&quot;data-key&quot;)] = (Number(entry[el.getAttribute(&quot;data-key&quot;)]) || 0) + 1;
+        updateSession(session.id, { entries: session.entries });
+      };
+    });
+    app.querySelectorAll(&quot;[data-dec]&quot;).forEach(function (el) {
+      el.onclick = function () {
+        var entry = session.entries.find(function (e) { return e.id === el.getAttribute(&quot;data-dec&quot;); });
+        entry[el.getAttribute(&quot;data-key&quot;)] = Math.max(0, (Number(entry[el.getAttribute(&quot;data-key&quot;)]) || 0) - 1);
+        updateSession(session.id, { entries: session.entries });
+      };
+    });
+    app.querySelectorAll(&quot;[data-remove]&quot;).forEach(function (el) {
+      el.onclick = function () {
+        session.entries = session.entries.filter(function (e) { return e.id !== el.getAttribute(&quot;data-remove&quot;); });
+        updateSession(session.id, { entries: session.entries });
+      };
+    });
+    app.querySelectorAll(&quot;input[data-entry]&quot;).forEach(function (el) {
+      el.onchange = function () {
+        var entry = session.entries.find(function (e) { return e.id === el.getAttribute(&quot;data-entry&quot;); });
+        entry[el.getAttribute(&quot;data-field&quot;)] = el.value;
+        saveSessions();
+      };
+    });
+
+    if (session.ended &amp;&amp; session.entries.length &gt; 0) {
+      drawBarChart(session);
+      drawPieChart(session);
+    }
+  }
+
+  var tooltipEl = null;
+  function ensureTooltip() {
+    if (!tooltipEl) {
+      tooltipEl = document.createElement(&quot;div&quot;);
+      tooltipEl.style.cssText = &quot;position:fixed;pointer-events:none;background:#0f172a;color:#fff;font-size:12px;line-height:1.5;padding:7px 11px;border-radius:7px;box-shadow:0 4px 14px rgba(0,0,0,.18);z-index:1000;white-space:nowrap;opacity:0;transition:opacity .08s;&quot;;
+      document.body.appendChild(tooltipEl);
+    }
+    return tooltipEl;
+  }
+  function showTooltip(clientX, clientY, html) {
+    var el = ensureTooltip();
+    el.innerHTML = html;
+    el.style.opacity = &quot;1&quot;;
+    var left = clientX + 16, top = clientY + 16;
+    if (left + 180 &gt; window.innerWidth) left = clientX - 180;
+    if (top + 60 &gt; window.innerHeight) top = clientY - 60;
+    el.style.left = left + &quot;px&quot;;
+    el.style.top = top + &quot;px&quot;;
+  }
+  function hideTooltip() { if (tooltipEl) tooltipEl.style.opacity = &quot;0&quot;; }
+
+  function setupCanvas(canvas) {
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    var ctx = canvas.getContext(&quot;2d&quot;);
+    ctx.scale(dpr, dpr);
+    return { ctx: ctx, w: rect.width, h: rect.height };
+  }
+
+  function drawBarChart(session) {
+    var canvas = document.getElementById(&quot;barCanvas&quot;);
+    var dims = setupCanvas(canvas);
+    var ctx = dims.ctx, W = dims.w, H = dims.h;
+    var padL = 36, padB = 44, padT = 10, padR = 10;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+
+    var totals = session.entries.map(total);
+    var maxTotal = Math.max.apply(null, totals.concat([1]));
+    var niceMax = Math.ceil(maxTotal / 4) * 4 || 4;
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = &quot;#e2e8f0&quot;; ctx.fillStyle = &quot;#64748b&quot;; ctx.font = &quot;11px ui-sans-serif, sans-serif&quot;;
+    for (var g = 0; g &lt;= 4; g++) {
+      var y = padT + plotH - (g / 4) * plotH;
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.strokeStyle = &quot;#f1f5f9&quot;; ctx.stroke();
+      ctx.fillText(String(Math.round((g / 4) * niceMax)), 4, y + 4);
+    }
+
+    var n = session.entries.length;
+    var slot = plotW / n;
+    var barW = Math.min(56, slot * 0.6);
+    var segments = [];
+
+    session.entries.forEach(function (e, i) {
+      var x = padL + slot * i + (slot - barW) / 2;
+      var yCursor = padT + plotH;
+      CATEGORY_COLUMNS.forEach(function (c) {
+        var v = Number(e[c.key]) || 0;
+        if (v &lt;= 0) return;
+        var hh = (v / niceMax) * plotH;
+        ctx.fillStyle = METRIC_COLORS[c.key];
+        ctx.fillRect(x, yCursor - hh, barW, hh);
+        segments.push({ x: x, y: yCursor - hh, w: barW, h: hh, label: c.label, value: v, speaker: e.speakerName || &quot;Unnamed&quot; });
+        yCursor -= hh;
+      });
+      ctx.fillStyle = &quot;#334155&quot;; ctx.font = &quot;11px ui-sans-serif, sans-serif&quot;; ctx.textAlign = &quot;center&quot;;
+      var name = e.speakerName || &quot;Unnamed&quot;;
+      if (name.length &gt; 10) name = name.slice(0, 9) + &quot;…&quot;;
+      ctx.fillText(name, x + barW / 2, padT + plotH + 16);
+      ctx.textAlign = &quot;left&quot;;
+    });
+
+    canvas.onmousemove = function (ev) {
+      var rect = canvas.getBoundingClientRect();
+      var mx = ev.clientX - rect.left, my = ev.clientY - rect.top;
+      var hit = null;
+      for (var i = 0; i &lt; segments.length; i++) {
+        var s = segments[i];
+        if (mx &gt;= s.x &amp;&amp; mx &lt;= s.x + s.w &amp;&amp; my &gt;= s.y &amp;&amp; my &lt;= s.y + s.h) { hit = s; break; }
+      }
+      if (hit) {
+        canvas.style.cursor = &quot;pointer&quot;;
+        showTooltip(ev.clientX, ev.clientY, &#x27;&lt;strong&gt;&#x27; + esc(hit.speaker) + &#x27;&lt;/strong&gt;&lt;br&gt;&#x27; + esc(hit.label) + &#x27;: &#x27; + hit.value);
+      } else {
+        canvas.style.cursor = &quot;default&quot;;
+        hideTooltip();
+      }
+    };
+    canvas.onmouseleave = function () { hideTooltip(); canvas.style.cursor = &quot;default&quot;; };
+
+    var legend = document.getElementById(&quot;legendBar&quot;);
+    legend.innerHTML = Object.keys(FAMILY_COLORS).map(function (name) {
+      return &#x27;&lt;span&gt;&lt;span class=&quot;sw&quot; style=&quot;background:&#x27; + FAMILY_COLORS[name] + &#x27;&quot;&gt;&lt;/span&gt;&#x27; + esc(name) + &#x27;&lt;/span&gt;&#x27;;
+    }).join(&quot;&quot;);
+  }
+
+  function drawPieChart(session) {
+    var canvas = document.getElementById(&quot;pieCanvas&quot;);
+    var dims = setupCanvas(canvas);
+    var ctx = dims.ctx, W = dims.w, H = dims.h;
+    var cx = W / 2, cy = H / 2;
+    var rOuterMax = Math.min(W, H) / 2 - 10;
+
+    var familyTotals = { &quot;Filler Sounds&quot;: 0, &quot;Crutch Words&quot;: 0, &quot;Pauses&quot;: 0, &quot;Repetitions&quot;: 0 };
+    session.entries.forEach(function (e) {
+      CATEGORY_COLUMNS.forEach(function (c) { familyTotals[c.group] += Number(e[c.key]) || 0; });
+    });
+    var familyTotal = Object.keys(familyTotals).reduce(function (s, k) { return s + familyTotals[k]; }, 0) || 1;
+
+    var metricTotals = CATEGORY_COLUMNS.map(function (c) {
+      return { key: c.key, value: session.entries.reduce(function (s, e) { return s + (Number(e[c.key]) || 0); }, 0) };
+    });
+    var metricTotal = metricTotals.reduce(function (s, m) { return s + m.value; }, 0) || 1;
+
+    ctx.clearRect(0, 0, W, H);
+    var segments = [];
+
+    var innerR1 = 0, outerR1 = rOuterMax * 0.52;
+    var angle = -Math.PI / 2;
+    Object.keys(familyTotals).forEach(function (name) {
+      var v = familyTotals[name];
+      if (v &lt;= 0) return;
+      var sweep = (v / familyTotal) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, outerR1, angle, angle + sweep);
+      ctx.closePath();
+      ctx.fillStyle = FAMILY_COLORS[name];
+      ctx.fill();
+      segments.push({ startAngle: angle, endAngle: angle + sweep, innerR: innerR1, outerR: outerR1, label: name, value: v, pct: Math.round((v / familyTotal) * 100) });
+      angle += sweep;
+    });
+
+    var labelByKey = {};
+    CATEGORY_COLUMNS.forEach(function (c) { labelByKey[c.key] = c.label; });
+
+    var innerR2 = rOuterMax * 0.62, outerR2 = rOuterMax;
+    angle = -Math.PI / 2;
+    metricTotals.forEach(function (m) {
+      if (m.value &lt;= 0) return;
+      var sweep = (m.value / metricTotal) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, outerR2, angle, angle + sweep);
+      ctx.arc(cx, cy, innerR2, angle + sweep, angle, true);
+      ctx.closePath();
+      ctx.fillStyle = METRIC_COLORS[m.key];
+      ctx.fill();
+      segments.push({ startAngle: angle, endAngle: angle + sweep, innerR: innerR2, outerR: outerR2, label: labelByKey[m.key], value: m.value, pct: Math.round((m.value / metricTotal) * 100) });
+      angle += sweep;
+    });
+
+    ctx.fillStyle = &quot;#ffffff&quot;;
+    ctx.beginPath(); ctx.arc(cx, cy, innerR1 ? innerR1 : rOuterMax * 0.0, 0, Math.PI * 2); ctx.fill();
+    // white ring gap between the two donuts
+    ctx.strokeStyle = &quot;#ffffff&quot;; ctx.lineWidth = (innerR2 - outerR1) || 1;
+    ctx.beginPath(); ctx.arc(cx, cy, (outerR1 + innerR2) / 2, 0, Math.PI * 2); ctx.stroke();
+
+    canvas.onmousemove = function (ev) {
+      var rect = canvas.getBoundingClientRect();
+      var mx = ev.clientX - rect.left, my = ev.clientY - rect.top;
+      var dx = mx - cx, dy = my - cy;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      var ang = Math.atan2(dy, dx);
+      while (ang &lt; -Math.PI / 2) ang += Math.PI * 2;
+      var hit = null;
+      for (var i = 0; i &lt; segments.length; i++) {
+        var s = segments[i];
+        if (dist &gt;= s.innerR &amp;&amp; dist &lt;= s.outerR &amp;&amp; ang &gt;= s.startAngle &amp;&amp; ang &lt; s.endAngle) { hit = s; break; }
+      }
+      if (hit) {
+        canvas.style.cursor = &quot;pointer&quot;;
+        showTooltip(ev.clientX, ev.clientY, &#x27;&lt;strong&gt;&#x27; + esc(hit.label) + &#x27;&lt;/strong&gt;&lt;br&gt;&#x27; + hit.value + &#x27; (&#x27; + hit.pct + &#x27;%)&#x27;);
+      } else {
+        canvas.style.cursor = &quot;default&quot;;
+        hideTooltip();
+      }
+    };
+    canvas.onmouseleave = function () { hideTooltip(); canvas.style.cursor = &quot;default&quot;; };
+
+    var legend = document.getElementById(&quot;legendPie&quot;);
+    legend.innerHTML = Object.keys(FAMILY_COLORS).map(function (name) {
+      return &#x27;&lt;span&gt;&lt;span class=&quot;sw&quot; style=&quot;background:&#x27; + FAMILY_COLORS[name] + &#x27;&quot;&gt;&lt;/span&gt;&#x27; + esc(name) + &#x27;&lt;/span&gt;&#x27;;
+    }).join(&quot;&quot;);
+  }
+
+  render();
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe></section>
+ <section class="tool-section" id="grammarian"><div class="tool-head"><div><h2>🔤 Grammarian</h2><p>Word/Idiom tracking plus language observations.</p></div><div class="tool-actions"><button class="tool-btn" onclick="TMHub.top()">↑ Home</button><button class="tool-btn" onclick="TMHub.focus('grammarian')">⛶ Expand</button></div></div><iframe id="frame-grammarian" title="Grammarian" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot; /&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+&lt;title&gt;Grammarian — Standalone&lt;/title&gt;
+&lt;style&gt;
+  :root { --bg: #f8fafc; --card: #ffffff; --border: #e2e8f0; --text: #0f172a; --muted: #64748b; --slate900: #0f172a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; }
+  [hidden] { display: none !important; }
+
+  .page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 24px; border-bottom: 1px solid var(--border); background: #fff; }
+  .page-head h1 { margin: 0 0 4px; font-size: 20px; }
+  .page-head p { margin: 0; color: var(--muted); font-size: 13px; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 24px; }
+
+  .btn { display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; border: 1px solid transparent; padding: 9px 15px; min-height: 38px; }
+  .btn-dark { background: var(--slate900); color: #fff; }
+  .btn-dark:hover { background: #1e293b; }
+  .btn-outline { background: #fff; border-color: #cbd5e1; color: var(--text); }
+  .btn-outline:hover { background: #f8fafc; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; }
+  .session-card { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px; margin-bottom: 10px; cursor: pointer; }
+  .session-card:hover { border-color: #cbd5e1; }
+  .session-card .meta { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; }
+  .badge-active { background: #d1fae5; color: #047857; }
+  .badge-ended { background: #f1f5f9; color: #475569; }
+  .icon-btn { background: none; border: none; color: #94a3b8; cursor: pointer; padding: 6px; border-radius: 6px; }
+  .icon-btn:hover { background: #f1f5f9; color: #e11d48; }
+  .empty { text-align: center; color: var(--muted); padding: 40px; font-size: 13px; }
+
+  .new-form { padding: 20px; margin-bottom: 16px; }
+  .new-form p.lede { margin: 0 0 12px; font-size: 13px; color: var(--muted); }
+  label.field { display: block; margin-bottom: 12px; }
+  label.field .lbl { display: block; margin-bottom: 5px; font-size: 12px; font-weight: 500; color: #475569; }
+  input[type=text], select {
+    width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 11px; font-size: 14px; outline: none;
+  }
+  input[type=text]:focus, select:focus { border-color: #94a3b8; }
+  .form-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); background: #fff; padding: 16px 24px; }
+  .topbar .left { display: flex; align-items: center; gap: 12px; }
+  .topbar button.back { background: none; border: none; color: #64748b; cursor: pointer; padding: 6px; border-radius: 6px; }
+  .topbar button.back:hover { background: #f1f5f9; }
+  .topbar .title { font-size: 14px; font-weight: 600; margin: 0; }
+
+  .next-speaker-card { max-width: 520px; margin: 32px auto; padding: 24px; }
+  .next-speaker-card h3 { margin: 0 0 16px; font-size: 14px; font-weight: 600; }
+  .ns-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .ns-grid .full { grid-column: 1 / -1; }
+  @media (max-width: 560px) { .ns-grid { grid-template-columns: 1fr; } }
+
+  .tracker { border-radius: 14px; background: #0f172a; color: #fff; padding: 32px; margin: 24px auto; max-width: 640px; }
+  .tracker .who { text-align: center; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: rgba(255,255,255,.7); }
+  .tracker .dayrow { display: flex; justify-content: center; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .daychip { border-radius: 999px; padding: 5px 12px; font-size: 12px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.1); }
+  .daychip.idiom { border-color: rgba(167,139,250,.3); background: rgba(139,92,246,.2); color: #ddd6fe; }
+  .tile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 420px; margin: 22px auto 0; }
+  .tile {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    border-radius: 10px; border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.05);
+    padding: 18px 14px; color: #fff; cursor: pointer; font: inherit;
+  }
+  .tile:hover { background: rgba(255,255,255,.1); }
+  .tile.active { border-color: #fbbf24; background: rgba(251,191,36,.1); color: #fcd34d; }
+  .tile .num { font-size: 18px; font-weight: 700; }
+  .tile .lbl { font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+  .tile-single { max-width: 420px; margin: 10px auto 0; }
+  .input-row { max-width: 420px; margin: 14px auto 0; display: flex; gap: 8px; }
+  .input-row input { flex: 1; border-radius: 6px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.1); color: #fff; padding: 9px 12px; font-size: 13px; outline: none; }
+  .input-row input::placeholder { color: rgba(255,255,255,.4); }
+  .input-row button { border-radius: 6px; background: #fbbf24; color: #1c1300; border: none; padding: 9px 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .end-row { display: flex; justify-content: center; margin-top: 30px; }
+  .end-row button { display: inline-flex; align-items: center; gap: 8px; border-radius: 8px; background: #e11d48; color: #fff; border: none; padding: 10px 20px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .end-row button:hover { background: #be123c; }
+
+  .speaker-card { padding: 16px; }
+  .speaker-card .hd { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .speaker-card .nm { font-weight: 600; font-size: 14px; }
+  .speaker-card .wic { display: flex; gap: 10px; font-size: 12px; color: #64748b; margin-bottom: 8px; }
+  .gw-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; color: #b45309; margin-bottom: 2px; }
+  .ex-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; color: #6d28d9; margin-bottom: 2px; }
+  details summary { cursor: pointer; font-size: 12px; font-weight: 500; color: #64748b; }
+  details summary:hover { color: #0f172a; }
+  details ul { margin: 6px 0 0; padding-left: 18px; font-size: 13px; color: #475569; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--slate900); color: #e2e8f0; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; }
+  th, td { padding: 10px 14px; }
+  tbody tr { border-top: 1px solid #f1f5f9; }
+  .report-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
+  @media (max-width: 760px) { .report-grid { grid-template-columns: 1fr; } }
+  .report-grid .card { padding: 16px; }
+  .report-grid h4 { margin: 0 0 8px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .report-grid ul { margin: 0; padding-left: 0; list-style: none; font-size: 13px; color: #475569; }
+  .report-grid li { margin-bottom: 4px; }
+  .report-grid li .who { color: #94a3b8; }
+
+  .speaker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+  .storage-note { padding: 16px 24px; font-size: 12px; color: var(--muted); text-align: center; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+(function () {
+  &quot;use strict&quot;;
+
+  var SPEECH_TYPES = [&quot;Table Topic&quot;, &quot;Evaluation&quot;, &quot;Speech&quot;, &quot;Custom&quot;];
+
+  function uid() { return &quot;id-&quot; + Date.now().toString(36) + &quot;-&quot; + Math.random().toString(36).slice(2, 9); }
+  function esc(s) { return String(s == null ? &quot;&quot; : s).replace(/[&amp;&lt;&gt;&quot;&#x27;]/g, function (c) { return { &quot;&amp;&quot;: &quot;&amp;amp;&quot;, &quot;&lt;&quot;: &quot;&amp;lt;&quot;, &quot;&gt;&quot;: &quot;&amp;gt;&quot;, &#x27;&quot;&#x27;: &quot;&amp;quot;&quot;, &quot;&#x27;&quot;: &quot;&amp;#39;&quot; }[c]; }); }
+  function nowLabel() { return new Date().toLocaleString(&quot;en-US&quot;, { hour: &quot;numeric&quot;, minute: &quot;2-digit&quot; }); }
+
+  var STORAGE_KEY = &quot;tm_standalone_grammarian_sessions_v1&quot;;
+  function loadSessions() { try { var raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : []; } catch (e) { return []; } }
+  function saveSessions() { localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions)); }
+
+  var sessions = loadSessions();
+  var currentId = null;
+  var showNewForm = false;
+  var activeInputKind = null; // &#x27;goodWord&#x27; | &#x27;expression&#x27; | &#x27;correction&#x27;
+  var app = document.getElementById(&quot;app&quot;);
+
+  function findSession(id) { for (var i = 0; i &lt; sessions.length; i++) if (sessions[i].id === id) return sessions[i]; return null; }
+  function updateSession(id, patch) { var s = findSession(id); if (!s) return; Object.assign(s, patch); saveSessions(); render(); }
+
+  function render() {
+    if (!currentId) return renderList();
+    var session = findSession(currentId);
+    if (!session) { currentId = null; return renderList(); }
+    renderSession(session);
+  }
+
+  function renderList() {
+    var sorted = sessions.slice().sort(function (a, b) { return a.createdAt &lt; b.createdAt ? 1 : -1; });
+    var html = &#x27;&lt;div class=&quot;page-head&quot;&gt;&lt;div&gt;&lt;h1&gt;Grammarian&lt;/h1&gt;&lt;p&gt;Standalone — runs fully offline, data saved in this browser only.&lt;/p&gt;&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;button class=&quot;btn btn-dark&quot; id=&quot;newBtn&quot;&gt;+ New Session&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;wrap&quot;&gt;&#x27;;
+
+    if (showNewForm) {
+      html += &#x27;&lt;div class=&quot;card new-form&quot;&gt;&lt;p class=&quot;lede&quot;&gt;Set the Word and Idiom of the Day. These display during every speaker&amp;rsquo;s tracking session.&lt;/p&gt;&#x27;;
+      html += &#x27;&lt;form id=&quot;newForm&quot;&gt;&#x27;;
+      html += &#x27;&lt;label class=&quot;field&quot;&gt;&lt;span class=&quot;lbl&quot;&gt;Word of the Day&lt;/span&gt;&lt;input type=&quot;text&quot; id=&quot;newWord&quot; placeholder=&quot;e.g. Eloquent&quot; /&gt;&lt;/label&gt;&#x27;;
+      html += &#x27;&lt;label class=&quot;field&quot;&gt;&lt;span class=&quot;lbl&quot;&gt;Idiom of the Day&lt;/span&gt;&lt;input type=&quot;text&quot; id=&quot;newIdiom&quot; placeholder=&quot;e.g. Bite the bullet&quot; /&gt;&lt;/label&gt;&#x27;;
+      html += &#x27;&lt;div class=&quot;form-actions&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-outline&quot; id=&quot;cancelNewBtn&quot;&gt;Cancel&lt;/button&gt;&lt;button type=&quot;submit&quot; class=&quot;btn btn-dark&quot;&gt;Start Session &amp;rarr;&lt;/button&gt;&lt;/div&gt;&#x27;;
+      html += &#x27;&lt;/form&gt;&lt;/div&gt;&#x27;;
+    }
+
+    if (sorted.length === 0) html += &#x27;&lt;div class=&quot;empty&quot;&gt;No Grammarian sessions yet.&lt;/div&gt;&#x27;;
+    else sorted.forEach(function (s) {
+      var dt = new Date(s.createdAt);
+      var label = dt.toLocaleString(&quot;en-US&quot;, { day: &quot;2-digit&quot;, month: &quot;short&quot;, year: &quot;numeric&quot; });
+      var sub = s.speakers.length + &#x27; speakers&#x27;;
+      if (s.wordOfDay) sub += &#x27; &amp;middot; Word: &#x27; + esc(s.wordOfDay);
+      if (s.idiomOfDay) sub += &#x27; &amp;middot; Idiom: &#x27; + esc(s.idiomOfDay);
+      html += &#x27;&lt;div class=&quot;card session-card&quot; data-open=&quot;&#x27; + s.id + &#x27;&quot;&gt;&lt;div&gt;&lt;div style=&quot;font-weight:600&quot;&gt;Session — &#x27; + esc(label) + &#x27;&lt;/div&gt;&#x27;;
+      html += &#x27;&lt;div class=&quot;meta&quot;&gt;&#x27; + sub + &#x27; &amp;middot; &lt;span class=&quot;badge &#x27; + (s.ended ? &#x27;badge-ended&#x27; : &#x27;badge-active&#x27;) + &#x27;&quot;&gt;&#x27; + (s.ended ? &#x27;Ended&#x27; : &#x27;Active&#x27;) + &#x27;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&#x27;;
+      html += &#x27;&lt;button class=&quot;icon-btn&quot; data-delete=&quot;&#x27; + s.id + &#x27;&quot;&gt;&amp;#10005;&lt;/button&gt;&lt;/div&gt;&#x27;;
+    });
+    html += &#x27;&lt;div class=&quot;storage-note&quot;&gt;Data is stored only in this browser (localStorage) — it is not shared with the main Toastmasters Dashboard app.&lt;/div&gt;&lt;/div&gt;&#x27;;
+    app.innerHTML = html;
+
+    document.getElementById(&quot;newBtn&quot;).onclick = function () { showNewForm = true; render(); };
+    var cancelBtn = document.getElementById(&quot;cancelNewBtn&quot;);
+    if (cancelBtn) cancelBtn.onclick = function () { showNewForm = false; render(); };
+    var newForm = document.getElementById(&quot;newForm&quot;);
+    if (newForm) newForm.onsubmit = function (e) {
+      e.preventDefault();
+      var s = {
+        id: uid(), createdAt: new Date().toISOString(),
+        wordOfDay: document.getElementById(&quot;newWord&quot;).value.trim() || undefined,
+        idiomOfDay: document.getElementById(&quot;newIdiom&quot;).value.trim() || undefined,
+        ended: false, speakers: []
+      };
+      sessions.push(s); saveSessions(); showNewForm = false; currentId = s.id; render();
+    };
+    app.querySelectorAll(&quot;[data-open]&quot;).forEach(function (el) {
+      el.onclick = function (e) { if (e.target.closest(&quot;[data-delete]&quot;)) return; currentId = el.getAttribute(&quot;data-open&quot;); render(); };
+    });
+    app.querySelectorAll(&quot;[data-delete]&quot;).forEach(function (el) {
+      el.onclick = function (e) { e.stopPropagation(); var id = el.getAttribute(&quot;data-delete&quot;); sessions = sessions.filter(function (s) { return s.id !== id; }); saveSessions(); render(); };
+    });
+  }
+
+  function renderSession(session) {
+    var dt = new Date(session.createdAt);
+    var label = dt.toLocaleString(&quot;en-US&quot;, { day: &quot;2-digit&quot;, month: &quot;short&quot;, year: &quot;numeric&quot; });
+    var lastSpeaker = session.speakers[session.speakers.length - 1];
+    var isActive = lastSpeaker &amp;&amp; !lastSpeaker.endTime;
+
+    var html = &#x27;&lt;div class=&quot;topbar&quot;&gt;&lt;div class=&quot;left&quot;&gt;&lt;button class=&quot;back&quot; id=&quot;backBtn&quot;&gt;&amp;larr;&lt;/button&gt;&#x27;;
+    html += &#x27;&lt;div&gt;&lt;p class=&quot;title&quot;&gt;Session — &#x27; + esc(label) + &#x27;&lt;/p&gt;&#x27;;
+    html += &#x27;&lt;span class=&quot;badge &#x27; + (session.ended ? &#x27;badge-ended&#x27; : &#x27;badge-active&#x27;) + &#x27;&quot;&gt;&#x27; + (session.ended ? &#x27;Ended&#x27; : &#x27;Active&#x27;) + &#x27;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&#x27;;
+    if (!session.ended) html += &#x27;&lt;button class=&quot;btn btn-outline&quot; id=&quot;endSessionBtn&quot;&gt;End Session&lt;/button&gt;&#x27;;
+    html += &#x27;&lt;/div&gt;&lt;div class=&quot;wrap&quot;&gt;&#x27;;
+
+    if (session.ended) {
+      html += renderReport(session);
+    } else if (isActive &amp;&amp; lastSpeaker) {
+      html += renderTracker(session, lastSpeaker);
+    } else {
+      html += renderNextSpeakerForm();
+    }
+    html += &#x27;&lt;/div&gt;&#x27;;
+    app.innerHTML = html;
+
+    document.getElementById(&quot;backBtn&quot;).onclick = function () { currentId = null; render(); };
+    var endSessionBtn = document.getElementById(&quot;endSessionBtn&quot;);
+    if (endSessionBtn) endSessionBtn.onclick = function () { updateSession(session.id, { ended: true }); };
+
+    if (session.ended) return;
+
+    if (isActive &amp;&amp; lastSpeaker) {
+      wireTracker(session, lastSpeaker);
+    } else {
+      wireNextSpeakerForm(session);
+    }
+  }
+
+  function renderNextSpeakerForm() {
+    var html = &#x27;&lt;div class=&quot;card next-speaker-card&quot;&gt;&lt;h3&gt;Next Speaker&lt;/h3&gt;&lt;form id=&quot;nsForm&quot;&gt;&lt;div class=&quot;ns-grid&quot;&gt;&#x27;;
+    html += &#x27;&lt;label class=&quot;field&quot;&gt;&lt;span class=&quot;lbl&quot;&gt;Speaker Name&lt;/span&gt;&lt;input type=&quot;text&quot; id=&quot;nsName&quot; placeholder=&quot;Enter speaker name&quot; required /&gt;&lt;/label&gt;&#x27;;
+    html += &#x27;&lt;label class=&quot;field&quot;&gt;&lt;span class=&quot;lbl&quot;&gt;Speech Type&lt;/span&gt;&lt;select id=&quot;nsType&quot;&gt;&lt;option value=&quot;&quot;&gt;— optional —&lt;/option&gt;&#x27;;
+    SPEECH_TYPES.forEach(function (t) { html += &#x27;&lt;option value=&quot;&#x27; + t + &#x27;&quot;&gt;&#x27; + t + &#x27;&lt;/option&gt;&#x27;; });
+    html += &#x27;&lt;/select&gt;&lt;/label&gt;&#x27;;
+    html += &#x27;&lt;label class=&quot;field full&quot; id=&quot;nsCustomWrap&quot; hidden&gt;&lt;span class=&quot;lbl&quot;&gt;Custom Speech Type&lt;/span&gt;&lt;input type=&quot;text&quot; id=&quot;nsCustomType&quot; placeholder=&quot;e.g. Icebreaker, Humorous…&quot; /&gt;&lt;/label&gt;&#x27;;
+    html += &#x27;&lt;div class=&quot;full&quot;&gt;&lt;button type=&quot;submit&quot; class=&quot;btn btn-dark&quot;&gt;Start Tracking&lt;/button&gt;&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;/div&gt;&lt;/form&gt;&lt;/div&gt;&#x27;;
+    return html;
+  }
+
+  function wireNextSpeakerForm(session) {
+    var typeSelect = document.getElementById(&quot;nsType&quot;);
+    typeSelect.onchange = function () { document.getElementById(&quot;nsCustomWrap&quot;).hidden = typeSelect.value !== &quot;Custom&quot;; };
+    document.getElementById(&quot;nsForm&quot;).onsubmit = function (e) {
+      e.preventDefault();
+      var name = document.getElementById(&quot;nsName&quot;).value.trim();
+      if (!name) return;
+      var type = typeSelect.value;
+      var speechType = type === &quot;Custom&quot; ? (document.getElementById(&quot;nsCustomType&quot;).value.trim() || &quot;Custom&quot;) : (type || &quot;Speech&quot;);
+      session.speakers.push({
+        id: uid(), speakerName: name, speechType: speechType,
+        wordUsed: 0, idiomUsed: 0, goodWords: [], expressions: [], corrections: [],
+        startTime: nowLabel()
+      });
+      activeInputKind = null;
+      updateSession(session.id, { speakers: session.speakers });
+    };
+  }
+
+  function renderTracker(session, speaker) {
+    var html = &#x27;&lt;div class=&quot;tracker&quot;&gt;&#x27;;
+    html += &#x27;&lt;p class=&quot;who&quot;&gt;&#x27; + esc(speaker.speakerName) + &#x27; &amp;middot; &#x27; + esc(speaker.speechType) + &#x27;&lt;/p&gt;&#x27;;
+    if (session.wordOfDay || session.idiomOfDay) {
+      html += &#x27;&lt;div class=&quot;dayrow&quot;&gt;&#x27;;
+      if (session.wordOfDay) html += &#x27;&lt;span class=&quot;daychip&quot;&gt;&amp;#128214; &#x27; + esc(session.wordOfDay) + &#x27;&lt;/span&gt;&#x27;;
+      if (session.idiomOfDay) html += &#x27;&lt;span class=&quot;daychip idiom&quot;&gt;&amp;#128161; &#x27; + esc(session.idiomOfDay) + &#x27;&lt;/span&gt;&#x27;;
+      html += &#x27;&lt;/div&gt;&#x27;;
+    }
+    html += &#x27;&lt;div class=&quot;tile-grid&quot;&gt;&#x27;;
+    html += &#x27;&lt;button class=&quot;tile&quot; id=&quot;wordTile&quot;&gt;&lt;div class=&quot;num&quot;&gt;&#x27; + speaker.wordUsed + &#x27;&lt;/div&gt;&lt;div class=&quot;lbl&quot;&gt;Word Used&lt;/div&gt;&lt;/button&gt;&#x27;;
+    html += &#x27;&lt;button class=&quot;tile&quot; id=&quot;idiomTile&quot;&gt;&lt;div class=&quot;num&quot;&gt;&#x27; + speaker.idiomUsed + &#x27;&lt;/div&gt;&lt;div class=&quot;lbl&quot;&gt;Idiom Used&lt;/div&gt;&lt;/button&gt;&#x27;;
+    html += &#x27;&lt;button class=&quot;tile &#x27; + (activeInputKind === &quot;goodWord&quot; ? &quot;active&quot; : &quot;&quot;) + &#x27;&quot; id=&quot;goodWordTile&quot;&gt;&lt;div class=&quot;num&quot;&gt;&#x27; + speaker.goodWords.length + &#x27;&lt;/div&gt;&lt;div class=&quot;lbl&quot;&gt;Good Word&lt;/div&gt;&lt;/button&gt;&#x27;;
+    html += &#x27;&lt;button class=&quot;tile &#x27; + (activeInputKind === &quot;expression&quot; ? &quot;active&quot; : &quot;&quot;) + &#x27;&quot; id=&quot;expressionTile&quot;&gt;&lt;div class=&quot;num&quot;&gt;&#x27; + speaker.expressions.length + &#x27;&lt;/div&gt;&lt;div class=&quot;lbl&quot;&gt;Expression&lt;/div&gt;&lt;/button&gt;&#x27;;
+    html += &#x27;&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;div class=&quot;tile-single&quot;&gt;&lt;button class=&quot;tile &#x27; + (activeInputKind === &quot;correction&quot; ? &quot;active&quot; : &quot;&quot;) + &#x27;&quot; id=&quot;correctionTile&quot; style=&quot;width:100%&quot;&gt;&lt;div class=&quot;num&quot;&gt;&#x27; + speaker.corrections.length + &#x27;&lt;/div&gt;&lt;div class=&quot;lbl&quot;&gt;Correction&lt;/div&gt;&lt;/button&gt;&lt;/div&gt;&#x27;;
+
+    if (activeInputKind) {
+      var ph = { goodWord: &quot;Type the good word…&quot;, expression: &quot;Type the notable expression…&quot;, correction: &quot;incorrect usage → correct usage&quot; }[activeInputKind];
+      html += &#x27;&lt;div class=&quot;input-row&quot;&gt;&lt;input type=&quot;text&quot; id=&quot;inlineInput&quot; placeholder=&quot;&#x27; + esc(ph) + &#x27;&quot; autofocus /&gt;&lt;button id=&quot;inlineAddBtn&quot;&gt;Add&lt;/button&gt;&lt;/div&gt;&#x27;;
+    }
+
+    html += &#x27;&lt;div class=&quot;end-row&quot;&gt;&lt;button id=&quot;endSpeakerBtn&quot;&gt;&amp;#9632; End Speaker&lt;/button&gt;&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;/div&gt;&#x27;;
+    return html;
+  }
+
+  function wireTracker(session, speaker) {
+    function save() { updateSession(session.id, { speakers: session.speakers }); }
+
+    document.getElementById(&quot;wordTile&quot;).onclick = function () { speaker.wordUsed += 1; save(); };
+    document.getElementById(&quot;idiomTile&quot;).onclick = function () { speaker.idiomUsed += 1; save(); };
+    document.getElementById(&quot;goodWordTile&quot;).onclick = function () { activeInputKind = activeInputKind === &quot;goodWord&quot; ? null : &quot;goodWord&quot;; render(); };
+    document.getElementById(&quot;expressionTile&quot;).onclick = function () { activeInputKind = activeInputKind === &quot;expression&quot; ? null : &quot;expression&quot;; render(); };
+    document.getElementById(&quot;correctionTile&quot;).onclick = function () { activeInputKind = activeInputKind === &quot;correction&quot; ? null : &quot;correction&quot;; render(); };
+    document.getElementById(&quot;endSpeakerBtn&quot;).onclick = function () { speaker.endTime = nowLabel(); activeInputKind = null; save(); };
+
+    var inlineInput = document.getElementById(&quot;inlineInput&quot;);
+    var inlineAddBtn = document.getElementById(&quot;inlineAddBtn&quot;);
+    if (inlineInput) {
+      function submitInline() {
+        var v = inlineInput.value.trim();
+        if (v) {
+          if (activeInputKind === &quot;goodWord&quot;) speaker.goodWords.push(v);
+          if (activeInputKind === &quot;expression&quot;) speaker.expressions.push(v);
+          if (activeInputKind === &quot;correction&quot;) speaker.corrections.push(v);
+        }
+        activeInputKind = null;
+        save();
+      }
+      inlineInput.addEventListener(&quot;keydown&quot;, function (e) { if (e.key === &quot;Enter&quot;) { e.preventDefault(); submitInline(); } });
+      inlineAddBtn.onclick = submitInline;
+      inlineInput.focus();
+    }
+  }
+
+  function renderReport(session) {
+    var allGood = [], allExpr = [], allCorr = [];
+    session.speakers.forEach(function (s) {
+      s.goodWords.forEach(function (w) { allGood.push({ text: w, who: s.speakerName }); });
+      s.expressions.forEach(function (w) { allExpr.push({ text: w, who: s.speakerName }); });
+      s.corrections.forEach(function (w) { allCorr.push({ text: w, who: s.speakerName }); });
+    });
+
+    var html = &#x27;&lt;div class=&quot;card&quot; style=&quot;overflow-x:auto&quot;&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;Speaker&lt;/th&gt;&lt;th&gt;Type&lt;/th&gt;&lt;th&gt;Word&lt;/th&gt;&lt;th&gt;Idiom&lt;/th&gt;&lt;th&gt;Good Words&lt;/th&gt;&lt;th&gt;Expressions&lt;/th&gt;&lt;th&gt;Corrections&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&#x27;;
+    session.speakers.forEach(function (s, idx) {
+      html += &#x27;&lt;tr&gt;&lt;td style=&quot;color:#94a3b8&quot;&gt;&#x27; + (idx + 1) + &#x27;&lt;/td&gt;&lt;td style=&quot;font-weight:600&quot;&gt;&#x27; + esc(s.speakerName) + &#x27;&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;&#x27; + esc(s.speechType) + &#x27;&lt;/td&gt;&#x27;;
+      html += &#x27;&lt;td&gt;&#x27; + s.wordUsed + &#x27;&lt;/td&gt;&lt;td&gt;&#x27; + s.idiomUsed + &#x27;&lt;/td&gt;&lt;td&gt;&#x27; + s.goodWords.length + &#x27;&lt;/td&gt;&lt;td&gt;&#x27; + s.expressions.length + &#x27;&lt;/td&gt;&lt;td&gt;&#x27; + s.corrections.length + &#x27;&lt;/td&gt;&lt;/tr&gt;&#x27;;
+    });
+    html += &#x27;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&#x27;;
+
+    html += &#x27;&lt;div class=&quot;report-grid&quot;&gt;&#x27;;
+    html += &#x27;&lt;div class=&quot;card&quot;&gt;&lt;h4 style=&quot;color:#b45309&quot;&gt;&amp;#10024; Good Words&lt;/h4&gt;&lt;ul&gt;&#x27;;
+    html += allGood.length === 0 ? &#x27;&lt;li style=&quot;color:#94a3b8&quot;&gt;None logged&lt;/li&gt;&#x27; : allGood.map(function (g) { return &#x27;&lt;li&gt;&#x27; + esc(g.text) + &#x27; &lt;span class=&quot;who&quot;&gt;— &#x27; + esc(g.who) + &#x27;&lt;/span&gt;&lt;/li&gt;&#x27;; }).join(&quot;&quot;);
+    html += &#x27;&lt;/ul&gt;&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;div class=&quot;card&quot;&gt;&lt;h4 style=&quot;color:#6d28d9&quot;&gt;&amp;#10024; Notable Expressions&lt;/h4&gt;&lt;ul&gt;&#x27;;
+    html += allExpr.length === 0 ? &#x27;&lt;li style=&quot;color:#94a3b8&quot;&gt;None logged&lt;/li&gt;&#x27; : allExpr.map(function (g) { return &#x27;&lt;li&gt;&#x27; + esc(g.text) + &#x27; &lt;span class=&quot;who&quot;&gt;— &#x27; + esc(g.who) + &#x27;&lt;/span&gt;&lt;/li&gt;&#x27;; }).join(&quot;&quot;);
+    html += &#x27;&lt;/ul&gt;&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;div class=&quot;card&quot;&gt;&lt;h4 style=&quot;color:#be123c&quot;&gt;&amp;#9888; Grammar Corrections&lt;/h4&gt;&lt;ul&gt;&#x27;;
+    html += allCorr.length === 0 ? &#x27;&lt;li style=&quot;color:#94a3b8&quot;&gt;None logged&lt;/li&gt;&#x27; : allCorr.map(function (g) { return &#x27;&lt;li&gt;&#x27; + esc(g.text) + &#x27;&lt;/li&gt;&#x27;; }).join(&quot;&quot;);
+    html += &#x27;&lt;/ul&gt;&lt;/div&gt;&#x27;;
+    html += &#x27;&lt;/div&gt;&#x27;;
+
+    html += &#x27;&lt;p style=&quot;font-weight:600;font-size:14px;margin:20px 0 10px&quot;&gt;Speaker Details&lt;/p&gt;&lt;div class=&quot;speaker-grid&quot;&gt;&#x27;;
+    session.speakers.forEach(function (s) {
+      html += &#x27;&lt;div class=&quot;card speaker-card&quot;&gt;&lt;div class=&quot;hd&quot;&gt;&lt;span class=&quot;nm&quot;&gt;&#x27; + esc(s.speakerName) + &#x27;&lt;/span&gt;&lt;span class=&quot;badge&quot; style=&quot;background:#f1f5f9;color:#475569&quot;&gt;&#x27; + esc(s.speechType) + &#x27;&lt;/span&gt;&lt;/div&gt;&#x27;;
+      html += &#x27;&lt;div class=&quot;wic&quot;&gt;&lt;span&gt;&amp;#128214; &amp;times;&#x27; + s.wordUsed + &#x27;&lt;/span&gt;&lt;span&gt;&amp;#128161; &amp;times;&#x27; + s.idiomUsed + &#x27;&lt;/span&gt;&lt;/div&gt;&#x27;;
+      if (s.goodWords.length) html += &#x27;&lt;div class=&quot;gw-label&quot;&gt;Good Words&lt;/div&gt;&lt;p style=&quot;margin:0 0 8px;font-size:13px;color:#475569&quot;&gt;&#x27; + esc(s.goodWords.join(&quot;, &quot;)) + &#x27;&lt;/p&gt;&#x27;;
+      if (s.expressions.length) html += &#x27;&lt;div class=&quot;ex-label&quot;&gt;Notable Expressions&lt;/div&gt;&lt;p style=&quot;margin:0 0 8px;font-size:13px;color:#475569&quot;&gt;&#x27; + esc(s.expressions.join(&quot; · &quot;)) + &#x27;&lt;/p&gt;&#x27;;
+      if (s.corrections.length) {
+        html += &#x27;&lt;details&gt;&lt;summary&gt;Show Grammar Corrections (&#x27; + s.corrections.length + &#x27;)&lt;/summary&gt;&lt;ul&gt;&#x27;;
+        s.corrections.forEach(function (c) { html += &#x27;&lt;li&gt;&#x27; + esc(c) + &#x27;&lt;/li&gt;&#x27;; });
+        html += &#x27;&lt;/ul&gt;&lt;/details&gt;&#x27;;
+      }
+      html += &#x27;&lt;/div&gt;&#x27;;
+    });
+    html += &#x27;&lt;/div&gt;&#x27;;
+    return html;
+  }
+
+  render();
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe></section>
+ <section class="tool-section" id="role-players"><div class="tool-head"><div><h2>🎤 Role Players</h2><p>Quick access hub for the integrated role-player tools.</p></div><div class="tool-actions"><button class="tool-btn" onclick="TMHub.top()">↑ Home</button><button class="tool-btn" onclick="TMHub.focus('role-players')">⛶ Expand</button></div></div><iframe id="frame-roles" title="Role Players" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot; /&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+&lt;title&gt;Role Players — Standalone&lt;/title&gt;
+&lt;style&gt;
+  :root { --bg: #f8fafc; --card: #ffffff; --border: #e2e8f0; --text: #0f172a; --muted: #64748b; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px; }
+  h1 { font-size: 24px; margin: 0 0 6px; }
+  p.lede { color: var(--muted); font-size: 14px; margin: 0 0 32px; max-width: 540px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  a.card {
+    display: block; border: 1px solid var(--border); background: var(--card); border-radius: 12px;
+    padding: 20px; text-decoration: none; color: inherit; transition: box-shadow .15s, border-color .15s;
+  }
+  a.card:hover { border-color: #cbd5e1; box-shadow: 0 2px 10px rgba(0,0,0,.05); }
+  a.card .nm { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  a.card .ds { font-size: 13px; color: var(--muted); }
+  .note { margin-top: 36px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 16px; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;wrap&quot;&gt;
+  &lt;h1&gt;Role Players — Standalone&lt;/h1&gt;
+  &lt;p class=&quot;lede&quot;&gt;Self-contained copies of the Timer, Ah-Counter, and Grammarian tools. No server, no install, no internet connection required — open any of these files directly in a browser. Each one saves its sessions to this browser&#x27;s local storage only.&lt;/p&gt;
+  &lt;div class=&quot;grid&quot;&gt;
+    &lt;a class=&quot;card&quot; href=&quot;#&quot; onclick=&quot;event.preventDefault(); parent.TMHub.go(&#x27;timer&#x27;)&quot;&gt;&lt;div class=&quot;nm&quot;&gt;⏱ Timer&lt;/div&gt;&lt;div class=&quot;ds&quot;&gt;Live speech timing with green/yellow/red thresholds.&lt;/div&gt;&lt;/a&gt;
+    &lt;a class=&quot;card&quot; href=&quot;#&quot; onclick=&quot;event.preventDefault(); parent.TMHub.go(&#x27;ah-counter&#x27;)&quot;&gt;&lt;div class=&quot;nm&quot;&gt;👂 Ah-Counter&lt;/div&gt;&lt;div class=&quot;ds&quot;&gt;Tally filler words, crutch words, and pauses.&lt;/div&gt;&lt;/a&gt;
+    &lt;a class=&quot;card&quot; href=&quot;#&quot; onclick=&quot;event.preventDefault(); parent.TMHub.go(&#x27;grammarian&#x27;)&quot;&gt;&lt;div class=&quot;nm&quot;&gt;🔤 Grammarian&lt;/div&gt;&lt;div class=&quot;ds&quot;&gt;Track word/idiom usage and grammar corrections.&lt;/div&gt;&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;note&quot;&gt;Use these cards to jump to the integrated role-player tools in this single offline dashboard. Each tool keeps its own browser-local session history.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe></section>
+</main>
+<footer>Single-file offline Toastmasters toolkit • Each embedded tool keeps its own local browser storage.</footer>
+<script>
+window.TMHub=(function(){
+ function go(id){var el=document.getElementById(id);if(!el)return;el.scrollIntoView({behavior:'smooth',block:'start'});setActive(id);}
+ function top(){go('home')}
+ function setActive(id){document.querySelectorAll('.tab').forEach(function(b){b.classList.toggle('active',b.dataset.target===id)})}
+ function focus(id){var s=document.getElementById(id);if(!s)return;var on=s.classList.toggle('focus');document.body.classList.toggle('has-focus',on);var btn=s.querySelector('.tool-actions .tool-btn:last-child');if(btn)btn.textContent=on?'✕ Close':'⛶ Expand';}
+ function resizeFrame(frame){try{var d=frame.contentDocument||frame.contentWindow.document;if(!d)return;var h=Math.max(d.documentElement.scrollHeight,d.body?d.body.scrollHeight:0);if(h>300&&!frame.closest('.focus'))frame.style.height=Math.min(Math.max(h+8,620),1500)+'px';}catch(e){}}
+ function wireFrame(frame){frame.addEventListener('load',function(){resizeFrame(frame);try{var d=frame.contentDocument;var mo=new MutationObserver(function(){setTimeout(function(){resizeFrame(frame)},80)});mo.observe(d.documentElement,{subtree:true,childList:true,attributes:true});d.addEventListener('click',function(){setTimeout(function(){resizeFrame(frame)},120)});}catch(e){}})}
+ document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('iframe').forEach(wireFrame);var obs=new IntersectionObserver(function(entries){var best=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(best)setActive(best.target.id)},{rootMargin:'-80px 0px -50% 0px',threshold:[0.05,.2,.5]});document.querySelectorAll('.tool-section').forEach(s=>obs.observe(s));});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'){var s=document.querySelector('.tool-section.focus');if(s)focus(s.id)}});
+ return {go:go,top:top,focus:focus};
+})();
 </script>
 </body>
 </html>
